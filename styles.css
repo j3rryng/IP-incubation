@@ -1,0 +1,208 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    letter-spacing: 0.5px;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    position: relative;
+    background-image: url("img/home_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height:100vh
+}
+
+/* Top navigation */
+.top-nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.home-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.home-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.logo {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: left;
+    max-width: 1000px; /* Adjust this to make logo smaller/larger */
+    width: 100%;
+}
+
+.logo img {
+    width: 100%; 
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.8));
+}
+
+/* Menu container - bottom right */
+.menu-container {
+    position: absolute;
+    top: 50%;
+    right: 210px;
+    transform: translateX(50%);
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 42px;
+    padding: 30px 50px;
+    min-width: 320px;
+    z-index: 20;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.menu-button {
+    display: block;
+    width: 100%;
+    padding: 16px 30px;
+    margin: 10px 0;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    font-family: 'Courier New', monospace;
+    position: relative;
+}
+
+.menu-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.menu-button.primary {
+    font-size: 19px;
+    padding: 18px 30px;
+}
+
+.menu-button .save-text {
+    font-size: 13px;
+    opacity: 0.7;
+    display: block;
+    margin-top: 3px;
+}
+
+/* Bottom left stats */
+.bottom-stats {
+    position: absolute;
+    bottom: 40px;
+    left: 50px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-badge {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* Bottom right icons */
+.bottom-icons {
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
+    z-index: 20;
+    display: flex;
+    gap: 20px;
+}
+
+.icon-button {
+    width: 70px;
+    height: 70px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px);
+}
+
+.icon-button svg {
+    width: 35px;
+    height: 35px;
+    fill: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 70px;
+    }
+
+    .menu-container {
+        min-width: 280px;
+        padding: 25px 35px;
+        bottom: 80px;
+    }
+
+    .menu-button {
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+
+    .bottom-stats {
+        left: 20px;
+        bottom: 20px;
+    }
+
+    .bottom-icons {
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .stat-badge {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+
+    .icon-button {
+        width: 60px;
+        height: 60px;
+    }
+}
