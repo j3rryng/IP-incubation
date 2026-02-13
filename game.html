@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sendai Clinic 3050</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+<div id="game-container">
+    <div id="bg-layer"></div>
+    
+    <div id="top-controls">
+        <button id="exit-btn" class="top-btn">Exit</button>
+        <button id="skip-btn" class="top-btn">Skip</button>
+    </div>
+    
+    <img id="character-sprite" src="" alt="">
+    
+    <div id="ui-wrapper">
+        <div id="choices-box" class="hidden"></div>
+        <div id="textbox">
+            <div id="text-content-area">
+                <div id="speaker-name"></div>
+                <div id="dialogue-text"></div>
+            </div>
+            <button id="next-btn" class="continue-btn">➔</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Game State
+    let gameState = {
+        currentPatient: 'haruka',
+        harukaStage: Math.floor(Math.random() * 3) + 1, // Random stage 1-3
+        uncleStage: Math.floor(Math.random() * 3) + 1,  // Random stage 1-3
+        week: 1
+    };
+
+    // Virus data
+    const virusData = {
+        phantom: {
+            name: "Phantom Virus",
+            stages: {
+                1: ["intermittent fever", "cough", "symptoms may be mistaken for stress or anxiety"],
+                2: ["intermittent fever", "cough", "difficulty breathing", "shortness of breath"],
+                3: ["intermittent fever", "cough", "difficulty breathing", "skin turning pale", "irregular heartbeat"],
+                4: ["death"]
+            }
+        },
+        vandal: {
+            name: "Vandal Virus",
+            stages: {
+                1: ["constant fever", "lightheadedness"],
+                2: ["constant fever", "lightheadedness", "constant high fever", "extreme fatigue"],
+                3: ["constant fever", "lightheadedness", "constant high fever", "extreme fatigue", "cyanosis", "frequent loss of consciousness", "hair loss"],
+                4: ["death"]
+            }
+        }
+    };
+
+    // Temperature ranges
+    function getTemperature(virus, stage) {
+        if (virus === 'vandal') {
+            if (stage === 1) return (38.0 + Math.random() * 0.5).toFixed(1); // 38.0-38.5°C
+            if (stage === 2) return (39.0 + Math.random() * 0.5).toFixed(1); // 39.0-39.5°C
+            if (stage === 3) return (39.5 + Math.random() * 0.5).toFixed(1); // 39.5-40.0°C
+        } else if (virus === 'phantom') {
+            if (stage === 1) return (37.2 + Math.random() * 0.5).toFixed(1); // 37.2-37.7°C
+            if (stage === 2) return (37.5 + Math.random() * 0.6).toFixed(1); // 37.5-38.1°C
+            if (stage === 3) return (37.8 + Math.random() * 0.7).toFixed(1); // 37.8-38.5°C
+        }
+        return "36.5";
+    }
+
+    // Build symptoms text
+    function buildSymptomsText(virus, stage) {
+        const symptoms = virusData[virus].stages[stage];
+        return symptoms.join(", ");
+    }
+
+    // Story nodes
+    const story = {
+        start_week1: {
+            speaker: "System",
+            text: "Sendai Clinic, Week 01. The humidity is high today. You check your logs before the first patient arrives.",
+            bg: "gamemenubg.jpg", 
+            char: "",
+            next: "haruka_enter"
+        },
+        
+        haruka_enter: {
+            speaker: "Haruka",
+            text: "Um... excuse me, Doctor... I-I'm sorry to bother you, but... I haven't been feeling well lately...",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "haruka_check_temp"
+        },
+
+        haruka_check_temp: {
+            speaker: () => {
+                if (gameState.harukaStage === 1) return "Haruka";
+                if (gameState.harukaStage === 2) return "Haruka";
+                return "Haruka";
+            },
+            text: () => {
+                let dialogue = "";
+                if (gameState.harukaStage === 1) {
+                    dialogue = "I... I feel a bit warm sometimes... and dizzy... Is that normal? Sorry for asking...";
+                } else if (gameState.harukaStage === 2) {
+                    dialogue = "Doctor... it's getting worse... I can barely stand... I'm so tired... Please help me...";
+                } else if (gameState.harukaStage === 3) {
+                    dialogue = "*breathing weakly* Doctor... I... I can't... everything is spinning... *collapses slightly*";
+                }
+                return `${dialogue}\n\nSymptoms observed: ${buildSymptomsText('vandal', gameState.harukaStage)}`;
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: [
+                { text: "Check Temperature", next: "haruka_temp_result" }
+            ]
+        },
+
+        haruka_temp_result: {
+            speaker: "System",
+            text: () => `Temperature: ${getTemperature('vandal', gameState.harukaStage)}°C`,
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "haruka_diagnosis"
+        },
+
+        haruka_diagnosis: {
+            speaker: "System",
+            text: "What is your diagnosis?",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: [
+                { text: "Phantom Virus", next: "haruka_wrong_virus" },
+                { text: "Vandal Virus", next: "haruka_select_stage" }
+            ]
+        },
+
+        haruka_wrong_virus: {
+            speaker: () => {
+                gameState.harukaStage++;
+                if (gameState.harukaStage >= 4) return "System";
+                if (gameState.harukaStage === 2) return "Haruka";
+                if (gameState.harukaStage === 3) return "Haruka";
+                return "Haruka";
+            },
+            text: () => {
+                gameState.harukaStage++;
+                if (gameState.harukaStage >= 4) {
+                    return "Incorrect virus identified. The treatment you administered was ineffective. Haruka's condition has deteriorated beyond recovery...";
+                }
+                if (gameState.harukaStage === 2) {
+                    return "*coughing weakly* Doctor... I... I don't feel any better... In fact... I feel worse... Did something go wrong?";
+                } else if (gameState.harukaStage === 3) {
+                    return "*gasping for air* No... no this isn't right... I can't breathe... Doctor... what's happening to me...?";
+                }
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: () => gameState.harukaStage >= 4 ? "haruka_death" : "haruka_check_temp"
+        },
+
+        haruka_select_stage: {
+            speaker: "System",
+            text: "Which stage is the patient at?",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: () => [
+                { text: "Stage 1", next: gameState.harukaStage === 1 ? "haruka_correct" : "haruka_wrong_stage" },
+                { text: "Stage 2", next: gameState.harukaStage === 2 ? "haruka_correct" : "haruka_wrong_stage" },
+                { text: "Stage 3", next: gameState.harukaStage === 3 ? "haruka_correct" : "haruka_wrong_stage" }
+            ]
+        },
+
+        haruka_wrong_stage: {
+            speaker: () => {
+                const nextStage = gameState.harukaStage + 1;
+                if (nextStage >= 4) return "System";
+                if (nextStage === 2) return "Haruka";
+                if (nextStage === 3) return "Haruka";
+                return "Haruka";
+            },
+            text: () => {
+                gameState.harukaStage++;
+                if (gameState.harukaStage >= 4) {
+                    return "Incorrect stage diagnosis. The dosage was wrong. Haruka's body couldn't handle the treatment...";
+                }
+                if (gameState.harukaStage === 2) {
+                    return "*trembling* Doctor... something's wrong... The medicine... it's not working... I feel even worse now...";
+                } else if (gameState.harukaStage === 3) {
+                    return "*barely conscious* Why... why is everything getting darker...? I trusted you... *voice fading*";
+                }
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: () => gameState.harukaStage >= 4 ? "haruka_death" : "haruka_check_temp"
+        },
+
+        haruka_death: {
+            speaker: "System",
+            text: "Haruka's eyes close for the last time. Her breathing stops. The monitor flatlines. You have failed your patient.",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "game_over"
+        },
+
+        haruka_correct: {
+            speaker: "Haruka",
+            text: "*relieved smile* Thank you so much, Doctor... I... I already feel a bit better knowing you figured it out. You saved me... *bows deeply* I'm so grateful...",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "transition_week2"
+        },
+
+        transition_week2: {
+            speaker: "System",
+            text: "Sendai Clinic, Week 02. The rain taps against the window. You sanitize your equipment and prepare for the day. The door chimes. A gruff voice calls out impatiently.",
+            bg: "gamemenubg.jpg",
+            char: "",
+            next: "uncle_enter"
+        },
+
+        uncle_enter: {
+            speaker: "Uncle Tanaka",
+            text: "*grumbles* About time. I've been waiting here forever. Look, I don't have all day, doc. Just fix whatever's wrong with me and let me get back to work.",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "uncle_check_temp"
+        },
+
+        uncle_check_temp: {
+            speaker: () => {
+                if (gameState.uncleStage === 1) return "Uncle Tanaka";
+                if (gameState.uncleStage === 2) return "Uncle Tanaka";
+                return "Uncle Tanaka";
+            },
+            text: () => {
+                let dialogue = "";
+                if (gameState.uncleStage === 1) {
+                    dialogue = "*coughs* It's just a little cough and some fever, nothing serious. Probably just stress from work. Can you hurry this up?";
+                } else if (gameState.uncleStage === 2) {
+                    dialogue = "*breathing heavily* Okay... maybe it's worse than I thought... I can't catch my breath... But I still need to get back to the office today!";
+                } else if (gameState.uncleStage === 3) {
+                    dialogue = "*gasping, voice weak* I... I can't... breathe... My chest... *grabs chest* This isn't just stress... Help me... please...";
+                }
+                return `${dialogue}\n\nSymptoms observed: ${buildSymptomsText('phantom', gameState.uncleStage)}`;
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: [
+                { text: "Check Temperature", next: "uncle_temp_result" }
+            ]
+        },
+
+        uncle_temp_result: {
+            speaker: "System",
+            text: () => `Temperature: ${getTemperature('phantom', gameState.uncleStage)}°C`,
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "uncle_diagnosis"
+        },
+
+        uncle_diagnosis: {
+            speaker: "System",
+            text: "What is your diagnosis?",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: [
+                { text: "Phantom Virus", next: "uncle_select_stage" },
+                { text: "Vandal Virus", next: "uncle_wrong_virus" }
+            ]
+        },
+
+        uncle_wrong_virus: {
+            speaker: () => {
+                gameState.uncleStage++;
+                if (gameState.uncleStage >= 4) return "System";
+                if (gameState.uncleStage === 2) return "Uncle Tanaka";
+                if (gameState.uncleStage === 3) return "Uncle Tanaka";
+                return "Uncle Tanaka";
+            },
+            text: () => {
+                gameState.uncleStage++;
+                if (gameState.uncleStage >= 4) {
+                    return "Incorrect virus identified. The wrong medication accelerated the infection. Uncle Tanaka couldn't be saved...";
+                }
+                if (gameState.uncleStage === 2) {
+                    return "*angry and panicked* What the hell did you give me?! I feel WORSE! My breathing... *gasps* What kind of doctor ARE you?!";
+                } else if (gameState.uncleStage === 3) {
+                    return "*barely breathing, anger turned to fear* No... no... I can't... I'm dying... aren't I? You... you killed me... *skin pale, heart racing*";
+                }
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: () => gameState.uncleStage >= 4 ? "uncle_death" : "uncle_check_temp"
+        },
+
+        uncle_select_stage: {
+            speaker: "System",
+            text: "Which stage is the patient at?",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            choices: () => [
+                { text: "Stage 1", next: gameState.uncleStage === 1 ? "uncle_correct" : "uncle_wrong_stage" },
+                { text: "Stage 2", next: gameState.uncleStage === 2 ? "uncle_correct" : "uncle_wrong_stage" },
+                { text: "Stage 3", next: gameState.uncleStage === 3 ? "uncle_correct" : "uncle_wrong_stage" }
+            ]
+        },
+
+        uncle_wrong_stage: {
+            speaker: () => {
+                const nextStage = gameState.uncleStage + 1;
+                if (nextStage >= 4) return "System";
+                if (nextStage === 2) return "Uncle Tanaka";
+                if (nextStage === 3) return "Uncle Tanaka";
+                return "Uncle Tanaka";
+            },
+            text: () => {
+                gameState.uncleStage++;
+                if (gameState.uncleStage >= 4) {
+                    return "Incorrect dosage administered. The treatment was too weak... or too strong. Either way, it's too late now.";
+                }
+                if (gameState.uncleStage === 2) {
+                    return "*furious* Are you KIDDING me right now?! The medication isn't working! I'm getting SICKER! I want a different doctor! NOW!";
+                } else if (gameState.uncleStage === 3) {
+                    return "*terror in eyes* I can't... I can't feel my fingers... everything's going numb... My heart... it's beating wrong... Please... I don't want to die...";
+                }
+            },
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: () => gameState.uncleStage >= 4 ? "uncle_death" : "uncle_check_temp"
+        },
+
+        uncle_death: {
+            speaker: "System",
+            text: "Uncle Tanaka's irregular heartbeat stops. His pale body goes still. Another life lost to misdiagnosis.",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "game_over"
+        },
+
+        uncle_correct: {
+            speaker: "Uncle Tanaka",
+            text: "*sighs in relief* Finally, a competent doctor. I... *coughs* I'm sorry for being harsh earlier. Thank you for saving my life. I owe you one, doc.",
+            bg: "gamemenubg.jpg",
+            char: "https://i.imgur.com/3vD3XjE.png",
+            next: "game_complete"
+        },
+
+        game_complete: {
+            speaker: "System",
+            text: "You have successfully treated both patients. Your reputation as a skilled doctor grows. Thank you for playing!",
+            bg: "gamemenubg.jpg",
+            char: "",
+            choices: [
+                { text: "Restart", next: "restart" }
+            ]
+        },
+
+        game_over: {
+            speaker: "System",
+            text: "Game Over. Would you like to try again?",
+            bg: "gamemenubg.jpg",
+            char: "",
+            choices: [
+                { text: "Restart", next: "restart" }
+            ]
+        },
+
+        restart: {
+            speaker: "System",
+            text: "Restarting...",
+            bg: "gamemenubg.jpg",
+            char: "",
+            next: "start_week1"
+        }
+    };
+
+    let currentNode = 'start_week1';
+    let isTyping = false;
+
+    // Button handlers
+    document.getElementById('exit-btn').onclick = () => {
+        if (confirm('Are you sure you want to exit?')) {
+            window.location.href = 'index.html';
+        }
+    };
+
+    document.getElementById('skip-btn').onclick = () => {
+        // Skip to diagnosis based on current patient
+        if (currentNode.includes('haruka') && !currentNode.includes('death') && !currentNode.includes('correct')) {
+            renderScene('haruka_diagnosis');
+        } else if (currentNode.includes('uncle') && !currentNode.includes('death') && !currentNode.includes('correct')) {
+            renderScene('uncle_diagnosis');
+        } else {
+            // If not in a patient scene, just complete the current text
+            const dialogueEl = document.getElementById('dialogue-text');
+            const node = story[currentNode];
+            const text = typeof node.text === 'function' ? node.text() : node.text;
+            dialogueEl.textContent = text;
+            isTyping = false;
+        }
+    };
+
+    function renderScene(nodeKey) {
+        // Handle restart
+        if (nodeKey === 'restart') {
+            gameState = {
+                currentPatient: 'haruka',
+                harukaStage: Math.floor(Math.random() * 3) + 1, // Random stage 1-3
+                uncleStage: Math.floor(Math.random() * 3) + 1,  // Random stage 1-3
+                week: 1
+            };
+            nodeKey = 'start_week1';
+        }
+
+        const node = story[nodeKey];
+        currentNode = nodeKey;
+
+        // Background
+        const bgLayer = document.getElementById('bg-layer');
+        if (node.bg) bgLayer.style.backgroundImage = `url('${node.bg}')`;
+
+        // Character
+        const charImg = document.getElementById('character-sprite');
+        if (node.char) {
+            charImg.src = node.char;
+            charImg.style.opacity = 1;
+        } else {
+            charImg.style.opacity = 0;
+        }
+
+        // Text
+        const speakerName = typeof node.speaker === 'function' ? node.speaker() : node.speaker;
+        document.getElementById('speaker-name').textContent = speakerName;
+        const text = typeof node.text === 'function' ? node.text() : node.text;
+        typeWriter(document.getElementById('dialogue-text'), text);
+
+        // Buttons
+        const choiceBox = document.getElementById('choices-box');
+        const nextBtn = document.getElementById('next-btn');
+
+        if (node.choices) {
+            nextBtn.classList.add('hidden');
+            choiceBox.classList.remove('hidden');
+            choiceBox.innerHTML = "";
+            const choices = typeof node.choices === 'function' ? node.choices() : node.choices;
+            choices.forEach(c => {
+                const btn = document.createElement('button');
+                btn.className = "choice-btn";
+                btn.innerText = c.text;
+                btn.onclick = () => renderScene(c.next);
+                choiceBox.appendChild(btn);
+            });
+        } else {
+            choiceBox.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+            const nextNode = typeof node.next === 'function' ? node.next() : node.next;
+            nextBtn.onclick = () => renderScene(nextNode);
+        }
+    }
+
+    function typeWriter(element, text) {
+        element.textContent = "";
+        let i = 0;
+        isTyping = true;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(interval);
+                isTyping = false;
+            }
+        }, 25);
+    }
+
+    renderScene('start_week1');
+</script>
+
+</body>
+</html>

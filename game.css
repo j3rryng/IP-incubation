@@ -1,0 +1,166 @@
+       * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            color: #e0f0e0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        #bg-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('gamemenubg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            z-index: 1;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Top buttons container */
+        #top-controls {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 20;
+        }
+
+        .top-btn {
+            background: rgba(15, 25, 15, 0.85);
+            color: #88ff88;
+            border: 2px solid #5c8a5c;
+            padding: 12px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .top-btn:hover {
+            background: #88ff88;
+            color: #1a2e1a;
+            transform: scale(1.05);
+        }
+
+        #character-sprite {
+            position: absolute;
+            bottom: 160px; 
+            left: 50%;
+            transform: translateX(-50%);
+            height: 80%;
+            z-index: 2;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #ui-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 850px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #choices-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            z-index: 11;
+        }
+
+        #textbox {
+            width: 100%;
+            background: rgba(15, 25, 15, 0.95);
+            border: 2px solid #5c8a5c;
+            border-radius: 60px;
+            padding: 25px 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            min-height: 130px;
+        }
+
+        #text-content-area {
+            flex: 1;
+        }
+
+        #speaker-name {
+            font-size: 0.85rem;
+            color: #afffaf;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        #dialogue-text {
+            font-size: 1.15rem;
+            line-height: 1.4;
+            color: #ffffff;
+        }
+
+        .continue-btn {
+            background: #5c8a5c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .continue-btn:hover {
+            background: #88ff88;
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        .choice-btn {
+            background: rgba(15, 25, 15, 0.9);
+            color: #88ff88;
+            border: 2px solid #5c8a5c;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .choice-btn:hover {
+            background: #88ff88;
+            color: #1a2e1a;
+        }
+
+        .hidden { display: none !important; }
