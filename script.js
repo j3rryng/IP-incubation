@@ -18,46 +18,115 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =========================
-PROFILE PAGE JAVASCRIPT
-With expandable dropdown stats
-========================= */
+   PROFILE PAGE JAVASCRIPT
+   External file: profile.js
+   ========================= */
 
+const MAX_PROFILES = 5;
+const STORAGE_KEY = 'incubation_profiles';
 let expandedProfileId = null;
 
-// Format time in minutes to hours and minutes
+// Initialize profiles
+function initProfiles() {
+    let profiles = getProfiles();
+    
+    if (!profiles || profiles.length === 0) {
+        console.log('Creating new profile structure...');
+        profiles = [];
+        for (let i = 1; i <= MAX_PROFILES; i++) {
+            profiles.push({
+                id: i,
+                name: `Profile ${i}`,
+                empty: true,
+                active: false,
+                week: 0,
+                experience: 0,
+                timeSpent: 0,
+                currency: 0,
+                level: 0,
+                createdAt: null,
+                lastPlayed: null,
+                settings: {}
+            });
+        }
+        saveProfiles(profiles);
+        console.log('Created', MAX_PROFILES, 'empty profile slots');
+    }
+    
+    return profiles;
+}
+
+// Get all profiles from localStorage
+function getProfiles() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (error) {
+        console.error('Error loading profiles:', error);
+        return null;
+    }
+}
+
+// Save profiles to localStorage
+function saveProfiles(profiles) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+        return true;
+    } catch (error) {
+        console.error('Error saving profiles:', error);
+        return false;
+    }
+}
+
+// Get a specific profile
+function getProfile(profileId) {
+    const profiles = getProfiles();
+    return profiles ? profiles.find(p => p.id === profileId) : null;
+}
+
+// Format time
 function formatTime(minutes) {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    if (hours > 0) {
-        return `${hours}h ${mins}m`;
-    }
-    return `${mins}m`;
+    return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
 }
 
-// Render profile slots with expandable stats
+// Render all profile slots
 function renderProfiles() {
-    const profiles = GameState.getProfiles();
+    console.log('=== renderProfiles called ===');
+    
+    const profiles = initProfiles();
     const container = document.getElementById('profilesList');
+    
+    if (!container) {
+        console.error('ERROR: profilesList container not found!');
+        return;
+    }
+    
+    console.log('Container found, clearing...');
     container.innerHTML = '';
+    console.log('Rendering', profiles.length, 'profiles');
 
     profiles.forEach((profile, index) => {
+        console.log(`Creating slot ${index + 1}:`, profile.empty ? 'EMPTY' : 'FILLED');
+        
         const slot = document.createElement('div');
         slot.className = profile.empty 
             ? 'profile-slot empty' 
             : `profile-slot filled color-${index + 1}`;
         
         if (profile.empty) {
-            // Empty slot - simple display
+            // Empty slot
             slot.textContent = 'empty';
-            slot.onclick = () => selectProfile(profile.id);
+            slot.onclick = () => createProfile(profile.id);
         } else {
-            // Filled slot - expandable with stats
+            // Filled slot with expandable stats
             const isExpanded = expandedProfileId === profile.id;
             if (isExpanded) {
                 slot.classList.add('expanded');
             }
 
-            // Profile header (name + expand icon)
+            // Profile header
             const header = document.createElement('div');
             header.className = 'profile-header';
             header.innerHTML = `
@@ -67,41 +136,41 @@ function renderProfiles() {
             header.onclick = () => toggleExpand(profile.id);
             slot.appendChild(header);
 
-            // Stats section (expandable)
+            // Stats section
             const statsDiv = document.createElement('div');
             statsDiv.className = 'profile-stats';
             statsDiv.innerHTML = `
                 <div class="stat-row">
                     <span class="stat-label">Week:</span>
-                    <span class="stat-value">${profile.gameData.week || 0}</span>
+                    <span class="stat-value">${profile.week || 0}</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Experience:</span>
-                    <span class="stat-value">${profile.gameData.experience || 0} XP</span>
+                    <span class="stat-value">${profile.experience || 0} XP</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Time Spent:</span>
-                    <span class="stat-value">${formatTime(profile.gameData.timeSpent || 0)}</span>
+                    <span class="stat-value">${formatTime(profile.timeSpent || 0)}</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Currency:</span>
-                    <span class="stat-value">${profile.gameData.currency || 0} CR</span>
+                    <span class="stat-value">${profile.currency || 0} CR</span>
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Level:</span>
-                    <span class="stat-value">${profile.gameData.level || 0}</span>
+                    <span class="stat-value">${profile.level || 0}</span>
                 </div>
             `;
             slot.appendChild(statsDiv);
 
-            // Continue button (only visible when expanded)
+            // Continue button
             if (isExpanded) {
                 const continueBtn = document.createElement('button');
                 continueBtn.className = 'profile-continue-btn';
                 continueBtn.textContent = 'Continue Game';
                 continueBtn.onclick = (e) => {
                     e.stopPropagation();
-                    loadProfileAndPlay(profile.id);
+                    loadProfile(profile.id);
                 };
                 statsDiv.appendChild(continueBtn);
             }
@@ -110,105 +179,139 @@ function renderProfiles() {
         container.appendChild(slot);
     });
 
+    console.log('Profiles rendered! Total slots:', container.children.length);
     updateSaveIndicator();
 }
 
-// Toggle expand/collapse for a profile
+// Toggle expand/collapse
 function toggleExpand(profileId) {
-    if (expandedProfileId === profileId) {
-        // Collapse if already expanded
-        expandedProfileId = null;
-    } else {
-        // Expand this profile, collapse others
-        expandedProfileId = profileId;
-    }
+    console.log('Toggling profile', profileId);
+    expandedProfileId = expandedProfileId === profileId ? null : profileId;
     renderProfiles();
 }
 
-// Update save indicator
+// Update save counter
 function updateSaveIndicator() {
-    const filledCount = GameState.getFilledProfileCount();
-    document.getElementById('saveNumber').textContent = `save - ${filledCount}`;
-}
-
-// Select/Create profile (for empty slots)
-function selectProfile(profileId) {
-    const profile = GameState.getProfile(profileId);
-
-    if (profile.empty) {
-        // Create new profile with initial data
-        const newProfile = GameState.createProfile(profileId);
-        if (newProfile) {
-            // Initialize with some starting values
-            GameState.updateProfileData(profileId, {
-                week: 1,
-                level: 1,
-                currency: 100,
-                experience: 0,
-                timeSpent: 0
-            });
-            
-            renderProfiles();
-            console.log(`New profile created: ${newProfile.name}`);
-            
-            // Redirect to game page
-            setTimeout(() => {
-                window.location.href = 'game.html';
-            }, 500);
-        }
+    const profiles = getProfiles();
+    if (!profiles) return;
+    
+    const filledCount = profiles.filter(p => !p.empty).length;
+    const saveNumberEl = document.getElementById('saveNumber');
+    if (saveNumberEl) {
+        saveNumberEl.textContent = `save - ${filledCount}`;
     }
 }
 
-// Load profile and start game (for filled slots)
-function loadProfileAndPlay(profileId) {
-    const loadedProfile = GameState.loadProfile(profileId);
-    if (loadedProfile) {
-        console.log(`Loading profile: ${loadedProfile.name}`);
-        console.log('Stats:', loadedProfile.gameData);
-        
-        // Redirect to game page
-        setTimeout(() => {
-            window.location.href = 'game.html';
-        }, 300);
+// Create new profile
+function createProfile(profileId) {
+    console.log('Creating profile', profileId);
+    
+    const profiles = getProfiles();
+    const profile = profiles.find(p => p.id === profileId);
+    
+    if (!profile || !profile.empty) {
+        console.error('Invalid profile or already exists');
+        return;
     }
+
+    // Initialize profile with starting values
+    profile.empty = false;
+    profile.active = true;
+    profile.week = 1;
+    profile.level = 1;
+    profile.currency = 100;
+    profile.experience = 0;
+    profile.timeSpent = 0;
+    profile.createdAt = new Date().toISOString();
+    profile.lastPlayed = new Date().toISOString();
+
+    // Deactivate other profiles
+    profiles.forEach(p => {
+        if (p.id !== profileId) p.active = false;
+    });
+
+    saveProfiles(profiles);
+    console.log('Profile created:', profile.name);
+    
+    // Redirect to game
+    setTimeout(() => {
+        window.location.href = 'game.html';
+    }, 500);
 }
 
-// Go back to home page
+// Load existing profile
+function loadProfile(profileId) {
+    console.log('Loading profile', profileId);
+    
+    const profiles = getProfiles();
+    const profile = profiles.find(p => p.id === profileId);
+    
+    if (!profile || profile.empty) {
+        console.error('Profile not found or empty');
+        return;
+    }
+
+    // Set as active
+    profile.active = true;
+    profile.lastPlayed = new Date().toISOString();
+
+    // Deactivate others
+    profiles.forEach(p => {
+        if (p.id !== profileId) p.active = false;
+    });
+
+    saveProfiles(profiles);
+    console.log('Loading profile:', profile.name);
+    
+    // Redirect to game
+    setTimeout(() => {
+        window.location.href = 'game.html';
+    }, 300);
+}
+
+// Get active profile
+function getActiveProfile() {
+    const profiles = getProfiles();
+    return profiles ? profiles.find(p => p.active === true) : null;
+}
+
+// Update profile data
+function updateProfileData(profileId, data) {
+    const profiles = getProfiles();
+    const profile = profiles.find(p => p.id === profileId);
+    
+    if (!profile || profile.empty) {
+        console.error('Profile not found');
+        return false;
+    }
+
+    // Update profile with new data
+    Object.keys(data).forEach(key => {
+        profile[key] = data[key];
+    });
+    
+    profile.lastPlayed = new Date().toISOString();
+    saveProfiles(profiles);
+    return true;
+}
+
+// Go back to home
 function goBack() {
-    window.location.href = 'home.html';
+    window.location.href = 'index.html';
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    renderProfiles();
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (expandedProfileId) {
-            // Close expanded profile first
-            expandedProfileId = null;
-            renderProfiles();
-        } else {
-            // Then go back
-            goBack();
-        }
-    }
-});
-
-// Testing function (browser console)
-window.resetProfiles = () => {
+// Reset all profiles (for testing)
+function resetProfiles() {
     if (confirm('Reset all profiles? This cannot be undone.')) {
-        GameState.resetAll();
+        localStorage.removeItem(STORAGE_KEY);
         expandedProfileId = null;
         renderProfiles();
     }
-};
+}
 
-// Add sample data to profile (for testing)
-window.addTestData = (profileId) => {
-    GameState.updateProfileData(profileId, {
+// Add test data (for testing)
+function addTestData(profileId) {
+    updateProfileData(profileId, {
         week: Math.floor(Math.random() * 20) + 1,
         experience: Math.floor(Math.random() * 5000) + 100,
         timeSpent: Math.floor(Math.random() * 600) + 30,
@@ -217,5 +320,45 @@ window.addTestData = (profileId) => {
     });
     renderProfiles();
     console.log(`Test data added to profile ${profileId}`);
-};
+}
 
+// Expose functions to window for global access
+window.getActiveProfile = getActiveProfile;
+window.updateProfileData = updateProfileData;
+window.getProfiles = getProfiles;
+window.resetProfiles = resetProfiles;
+window.addTestData = addTestData;
+
+// Initialize when DOM is ready
+function initialize() {
+    console.log('=== PROFILE PAGE INITIALIZED ===');
+    console.log('DOM fully loaded');
+    
+    // Check if container exists
+    const container = document.getElementById('profilesList');
+    if (container) {
+        console.log('Container found:', container);
+    } else {
+        console.error('Container NOT found!');
+    }
+    
+    // Initialize profiles
+    renderProfiles();
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', initialize);
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (expandedProfileId) {
+            expandedProfileId = null;
+            renderProfiles();
+        } else {
+            goBack();
+        }
+    }
+});
+
+console.log('profile.js loaded successfully');
