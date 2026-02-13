@@ -16,6 +16,40 @@ body {
     min-height:100vh
 }
 
+.user-info {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(15, 25, 15, 0.9);
+    border: 2px solid #5c8a5c;
+    border-radius: 15px;
+    padding: 12px 20px;
+    color: #88ff88;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.user-email {
+    color: #afffaf;
+}
+
+.logout-btn {
+    background: #5c8a5c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ff6464;
+}
 /* Top navigation */
 .top-nav {
     position: absolute;
