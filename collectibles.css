@@ -593,11 +593,517 @@ body {
     cursor: not-allowed;
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .collectibles-container {
+        width: 95%;
+        height: 92vh;
+        border-radius: 35px;
+    }
+
+    .header {
+        padding: 18px 30px;
+        border-radius: 33px 33px 0 0;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .currency-badge {
+        padding: 8px 20px;
+        font-size: 15px;
+    }
+
+    .content-wrapper {
+        padding: 30px 35px;
+    }
+
+    .collection-section {
+        padding: 25px;
+        border-radius: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 18px;
+    }
+
+    .badge-card {
+        width: 250px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .collectibles-container {
+        width: 98%;
+        height: 95vh;
+        border-radius: 25px;
+    }
+
+    .header {
+        padding: 15px 20px;
+        border-radius: 23px 23px 0 0;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .header-left {
+        gap: 12px;
+    }
+
     .back-button {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header-right {
+        gap: 10px;
+    }
+
+    .currency-badge {
+        padding: 6px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+
+    .content-wrapper {
+        padding: 25px 20px;
+    }
+
+    .collection-section {
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 18px;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .view-more-btn {
+        padding: 6px 16px;
+        font-size: 13px;
+        border-radius: 20px;
+    }
+
+    .badges-grid {
+        gap: 15px;
+    }
+
+    .badge-card {
+        width: 220px;
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .badge-images {
+        min-height: 100px;
+        margin-bottom: 15px;
+    }
+
+    .badge-avatar {
+        width: 80px;
+        height: 80px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .badge-name {
+        font-size: 15px;
+    }
+
+    .badge-status {
+        font-size: 12px;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+    }
+
+    .merch-card {
+        padding: 15px;
+        border-radius: 18px;
+    }
+
+    .merch-image-container {
+        border-radius: 12px;
+        margin-bottom: 12px;
+    }
+
+    .merch-name {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .merch-price {
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 92%;
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .modal-header h2 {
+        font-size: 20px;
+    }
+
+    .close-btn {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .modal-body {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+    }
+
+    .modal-badge-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .modal-badge-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .modal-badge-name {
+        font-size: 12px;
+    }
+
+    .item-preview {
+        height: 180px;
+        border-radius: 12px;
+    }
+
+    .item-info h3 {
+        font-size: 18px;
+    }
+
+    .item-description {
+        font-size: 13px;
+    }
+
+    .price-display {
+        padding: 10px 16px;
+        border-radius: 10px;
+    }
+
+    .price-label {
+        font-size: 14px;
+    }
+
+    .price-value {
         font-size: 16px;
+    }
+
+    .purchase-actions {
+        gap: 12px;
+    }
+
+    .cancel-btn,
+    .confirm-btn {
+        padding: 12px 16px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collectibles-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+
+    .header {
+        padding: 12px 15px;
+        border-radius: 0;
+    }
+
+    .header-left {
+        gap: 10px;
+    }
+
+    .back-button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+        letter-spacing: 0.5px;
+    }
+
+    .currency-badge {
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 18px;
+    }
+
+    .content-wrapper {
+        padding: 20px 15px;
+    }
+
+    .collection-section {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+
+    .section-header {
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .view-more-btn {
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 18px;
+    }
+
+    .badges-grid {
+        gap: 12px;
+    }
+
+    .badge-card {
+        width: 180px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .badge-images {
+        min-height: 80px;
+        margin-bottom: 12px;
+    }
+
+    .badge-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .badge-name {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .badge-status {
+        font-size: 11px;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+
+    .merch-card {
+        padding: 12px;
+        border-radius: 15px;
+    }
+
+    .merch-image-container {
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .merch-name {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .merch-price {
+        font-size: 13px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 18px;
+        max-height: 85vh;
+        border-radius: 15px;
+    }
+
+    .modal-header {
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+    }
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+    .close-btn {
+        font-size: 26px;
+        width: 26px;
+        height: 26px;
+    }
+
+    .modal-body {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+
+    .modal-badge-card {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .modal-badge-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+
+    .modal-badge-name {
+        font-size: 11px;
+    }
+
+    .purchase-details {
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .item-preview {
+        height: 150px;
+        border-radius: 10px;
+    }
+
+    .item-info h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .item-description {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .price-display {
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .price-label {
+        font-size: 13px;
+    }
+
+    .price-value {
+        font-size: 15px;
+    }
+
+    .purchase-actions {
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .confirm-btn {
+        padding: 11px 14px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .header h1 {
+        font-size: 16px;
+    }
+
+    .currency-badge {
+        padding: 4px 10px;
+        font-size: 11px;
+    }
+
+    .section-title {
+        font-size: 15px;
+    }
+
+    .badge-card {
+        width: 160px;
+        padding: 12px;
+    }
+
+    .badge-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .badge-name {
+        font-size: 13px;
+    }
+
+    .badge-status {
+        font-size: 10px;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .merch-name {
+        font-size: 12px;
+    }
+
+    .merch-price {
+        font-size: 12px;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .collectibles-container {
+        height: 98vh;
+    }
+
+    .header {
+        padding: 10px 20px;
+    }
+
+    .content-wrapper {
+        padding: 15px 20px;
+    }
+
+    .collection-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .badge-card {
+        width: 200px;
+        padding: 12px;
+    }
+
+    .badge-images {
+        min-height: 70px;
     }
 }
