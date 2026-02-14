@@ -156,7 +156,7 @@ function openLiveChat() {
     showNotification('Live chat is opening...');
     // In a real app, this would open a chat widget
     setTimeout(() => {
-        alert('Live chat would open here. This is a demo version.');
+        alert('Live chat ongoing...');
     }, 500);
 }
 
