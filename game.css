@@ -414,3 +414,328 @@ html {
     padding-left: 15px;
     font-size: 1.1rem;
 }
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* Tablets and landscape phones */
+@media (max-width: 768px) {
+    #top-controls {
+        padding: 0 15px;
+        top: 15px;
+    }
+
+    .top-left-buttons,
+    .top-right-stats {
+        gap: 8px;
+    }
+
+    .top-btn {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+    }
+
+    .stat-display {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+
+    #character-sprite {
+        height: 70%;
+        bottom: 140px;
+    }
+
+    #ui-wrapper {
+        width: 95%;
+        margin-bottom: 30px;
+    }
+
+    #textbox {
+        border-radius: 40px;
+        padding: 20px 30px;
+        min-height: 110px;
+    }
+
+    #speaker-name {
+        font-size: 0.75rem;
+    }
+
+    #dialogue-text {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+
+    .continue-btn {
+        width: 40px;
+        height: 40px;
+        margin-left: 15px;
+        font-size: 1rem;
+    }
+
+    .choice-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    #side-menu-btn {
+        right: 15px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    #side-panel {
+        width: 380px;
+        right: -380px;
+        padding: 15px;
+    }
+
+    .checklist-title,
+    .encyclopedia-title {
+        font-size: 1.8rem;
+    }
+
+    .symptom-label {
+        font-size: 1.1rem;
+    }
+
+    .virus-name {
+        font-size: 1.5rem;
+    }
+
+    .virus-info {
+        font-size: 1rem;
+    }
+
+    .stage-info {
+        font-size: 0.95rem;
+    }
+
+    #journal-note {
+        max-width: 70%;
+        max-height: 50%;
+    }
+}
+
+/* Mobile phones portrait */
+@media (max-width: 480px) {
+    #top-controls {
+        padding: 0 10px;
+        top: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .top-left-buttons,
+    .top-right-stats {
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .top-btn {
+        padding: 8px 12px;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-display {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        border-radius: 15px;
+    }
+
+    #character-sprite {
+        height: 60%;
+        bottom: 120px;
+    }
+
+    #ui-wrapper {
+        width: 98%;
+        margin-bottom: 20px;
+        gap: 10px;
+    }
+
+    #textbox {
+        border-radius: 30px;
+        padding: 15px 20px;
+        min-height: 100px;
+    }
+
+    #speaker-name {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+
+    #dialogue-text {
+        font-size: 0.9rem;
+        line-height: 1.25;
+    }
+
+    .continue-btn {
+        width: 35px;
+        height: 35px;
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
+
+    .choice-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        border-radius: 20px;
+    }
+
+    #choices-box {
+        gap: 8px;
+    }
+
+    #side-menu-btn {
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        border-radius: 20px;
+    }
+
+    #side-panel {
+        width: 100%;
+        right: -100%;
+        padding: 15px;
+    }
+
+    #close-panel {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+    .tab-nav {
+        gap: 5px;
+    }
+
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .checklist-title,
+    .encyclopedia-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .checklist-item {
+        margin-bottom: 15px;
+        padding: 6px;
+    }
+
+    .checkbox {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #4a3f35;
+        margin-right: 12px;
+    }
+
+    .checkbox.checked::after {
+        font-size: 1.5rem;
+    }
+
+    .symptom-label {
+        font-size: 1rem;
+    }
+
+    .virus-section {
+        padding: 15px;
+        margin-bottom: 25px;
+    }
+
+    .virus-name {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .virus-info {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .stage-info {
+        font-size: 0.85rem;
+        margin: 8px 0;
+        padding-left: 10px;
+    }
+
+    #journal-note {
+        max-width: 85%;
+        max-height: 45%;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .top-btn {
+        padding: 6px 10px;
+        font-size: 0.65rem;
+    }
+
+    .stat-display {
+        padding: 5px 10px;
+        font-size: 0.65rem;
+    }
+
+    #dialogue-text {
+        font-size: 0.85rem;
+    }
+
+    .choice-btn {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    .checklist-title,
+    .encyclopedia-title {
+        font-size: 1.3rem;
+    }
+
+    .symptom-label {
+        font-size: 0.9rem;
+    }
+
+    .virus-name {
+        font-size: 1.2rem;
+    }
+
+    .virus-info {
+        font-size: 0.85rem;
+    }
+
+    .stage-info {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape mode on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    #character-sprite {
+        height: 55%;
+        bottom: 100px;
+    }
+
+    #ui-wrapper {
+        margin-bottom: 15px;
+    }
+
+    #textbox {
+        min-height: 80px;
+        padding: 12px 20px;
+    }
+
+    #top-controls {
+        top: 8px;
+    }
+
+    .top-btn {
+        padding: 6px 12px;
+    }
+}
