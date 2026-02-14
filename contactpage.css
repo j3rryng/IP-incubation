@@ -499,29 +499,6 @@ footer p {
     }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    .support-section,
-    .faq-section,
-    .contact-info-section,
-    header,
-    footer {
-        padding: 20px;
-    }
-
-    .contact-methods {
-        grid-template-columns: 1fr;
-    }
-
-    .social-links {
-        flex-wrap: wrap;
-    }
-}
-
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 10px;
@@ -538,4 +515,520 @@ footer p {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(76, 175, 80, 0.7);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    body {
+        padding: 18px;
+    }
+
+    .container {
+        padding-bottom: 35px;
+    }
+
+    header {
+        padding: 18px;
+        margin-bottom: 25px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    .support-section,
+    .faq-section,
+    .contact-info-section {
+        padding: 25px;
+        margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .contact-methods {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 10px;
+        padding-bottom: 30px;
+    }
+
+    header {
+        padding: 16px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .back-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .support-section,
+    .faq-section,
+    .contact-info-section,
+    footer {
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
+
+    .section-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        padding: 11px 13px;
+        font-size: 16px;
+        border-radius: 7px;
+    }
+
+    .form-group textarea {
+        min-height: 90px;
+    }
+
+    .file-upload-label {
+        padding: 11px 18px;
+        border-radius: 7px;
+    }
+
+    .submit-btn {
+        padding: 13px;
+        font-size: 15px;
+        border-radius: 7px;
+    }
+
+    .secondary-btn {
+        padding: 9px 18px;
+        font-size: 13px;
+        border-radius: 7px;
+    }
+
+    .success-message {
+        padding: 35px 18px;
+    }
+
+    .success-message h3 {
+        font-size: 22px;
+    }
+
+    .success-message p {
+        font-size: 14px;
+    }
+
+    .faq-section h3 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .faq-question {
+        padding: 13px 0;
+        font-size: 16px;
+    }
+
+    .faq-answer p {
+        font-size: 14px;
+        padding: 0 0 13px 0;
+    }
+
+    .contact-info-section h3 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .contact-methods {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .contact-card {
+        padding: 18px;
+        border-radius: 9px;
+    }
+
+    .contact-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .contact-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .contact-details h4 {
+        font-size: 15px;
+    }
+
+    .contact-details a {
+        font-size: 16px;
+    }
+
+    .social-links {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .social-link {
+        width: 38px;
+        height: 38px;
+    }
+
+    footer {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+
+    header {
+        padding: 14px;
+        margin-bottom: 18px;
+        gap: 12px;
+        border-radius: 10px;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    .back-btn {
+        padding: 4px;
+    }
+
+    .back-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .support-section,
+    .faq-section,
+    .contact-info-section,
+    footer {
+        padding: 18px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+    }
+
+    .section-header {
+        gap: 8px;
+        margin-bottom: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-header svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 16px;
+    }
+
+    .section-description {
+        font-size: 13px;
+        margin-bottom: 18px;
+        line-height: 1.5;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .form-group select {
+        background-position: right 12px center;
+        padding-right: 35px;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
+
+    .helper-text {
+        font-size: 11px;
+    }
+
+    .file-upload-label {
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+
+    .file-upload-label svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .submit-btn {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        gap: 8px;
+    }
+
+    .submit-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .secondary-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+
+    .success-message {
+        padding: 30px 15px;
+    }
+
+    .success-message svg {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+
+    .success-message h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .success-message p {
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+
+    .faq-section h3 {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .faq-item {
+        margin-bottom: 8px;
+    }
+
+    .faq-question {
+        padding: 12px 0;
+        font-size: 14px;
+    }
+
+    .faq-question svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .faq-answer p {
+        font-size: 13px;
+        padding: 0 0 12px 0;
+        line-height: 1.5;
+    }
+
+    .contact-info-section h3 {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .contact-methods {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .contact-card {
+        padding: 16px;
+        border-radius: 8px;
+        gap: 12px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .contact-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contact-details h4 {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .contact-details a {
+        font-size: 14px;
+    }
+
+    .contact-details p,
+    .contact-note {
+        font-size: 11px;
+    }
+
+    .chat-btn {
+        padding: 7px 14px;
+        font-size: 11px;
+        border-radius: 5px;
+    }
+
+    .social-section {
+        padding-top: 18px;
+    }
+
+    .social-section h4 {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .social-links {
+        gap: 10px;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+    }
+
+    .social-link svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    footer {
+        padding: 16px;
+    }
+
+    footer p {
+        font-size: 11px;
+        margin-bottom: 8px;
+    }
+
+    .footer-links {
+        gap: 8px;
+    }
+
+    .footer-links a {
+        font-size: 11px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 16px;
+    }
+
+    .section-header h2 {
+        font-size: 15px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        font-size: 13px;
+        padding: 9px 11px;
+    }
+
+    .submit-btn {
+        font-size: 13px;
+        padding: 11px;
+    }
+
+    .faq-question {
+        font-size: 13px;
+    }
+
+    .contact-details a {
+        font-size: 13px;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .support-section,
+    .faq-section,
+    .contact-info-section {
+        padding: 18px;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .submit-btn {
+        padding: 11px;
+    }
 }
