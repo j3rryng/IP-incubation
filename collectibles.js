@@ -13,6 +13,48 @@ const badgesData = [
         status: "seen",
         avatars: "img/badge102.png",
         locked: false
+    },
+    {
+        id: 3,
+        name: "The Wanderer",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 4,
+        name: "Night Watcher",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 5,
+        name: "Silent Guardian",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 6,
+        name: "Shadow Walker",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 7,
+        name: "Dawn Keeper",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 8,
+        name: "Storm Caller",
+        status: "locked",
+        avatars: "img/locked.png",
+        locked: true
     }
 ];
 
@@ -21,31 +63,76 @@ const merchandiseData = [
         id: 101,
         name: "Phantom Model",
         price: 1000,
-        description: " airborne virus, highly highly contagious.",
-        image: "img/modelPhantom.png"
+        description: "Airborne virus, highly highly contagious.",
+        image: "img/modelPhantom.png",
+        locked: false
     },
     {
         id: 102,
-        name: "Vandal model",
+        name: "Vandal Model",
         price: 1000,
         description: "A magnificent virus created for destruction.",
-        image: "img/modelVandal.png"
+        image: "img/modelVandal.png",
+        locked: false
+    },
+    {
+        id: 103,
+        name: "Clinic Blueprint",
+        price: 2500,
+        description: "Original architectural plans of the Incubation Clinic.",
+        image: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 104,
+        name: "Lab Equipment Set",
+        price: 3000,
+        description: "Professional medical equipment replica.",
+        image: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 105,
+        name: "Grandfather's Journal",
+        price: 5000,
+        description: "Replica of Dr. Yamamoto's research journal.",
+        image: "img/locked.png",
+        locked: true
+    },
+    {
+        id: 106,
+        name: "Hazmat Suit Model",
+        price: 1500,
+        description: "Miniature protective equipment display.",
+        image: "img/locked.png",
+        locked: true
     }
 ];
 
 // ===== STATE =====
-let userCurrency = 1500;
+let userCurrency = parseInt(localStorage.getItem('gameCredits')) || 0;
 let selectedItem = null;
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
     initializePage();
+    // Sync with localStorage periodically
+    setInterval(syncCurrency, 1000);
 });
 
 function initializePage() {
     renderBadges();
     renderMerchandise();
     updateCurrencyDisplay();
+}
+
+// Sync currency with localStorage (from game)
+function syncCurrency() {
+    const storedCredits = parseInt(localStorage.getItem('gameCredits')) || 0;
+    if (storedCredits !== userCurrency) {
+        userCurrency = storedCredits;
+        updateCurrencyDisplay();
+    }
 }
 
 // ===== RENDERING FUNCTIONS =====
@@ -96,7 +183,7 @@ function renderMerchandise() {
 
 function createMerchCard(item) {
     const card = document.createElement('div');
-    card.className = 'merch-card';
+    card.className = `merch-card ${item.locked ? 'locked' : ''}`;
     
     // Always render as image
     const imageHTML = `<img class="merch-image" src="${item.image}" alt="${item.name}">`;
@@ -107,11 +194,15 @@ function createMerchCard(item) {
         </div>
         <div class="merch-info">
             <div class="merch-name">${item.name}</div>
-            <div class="merch-price">${item.price} CR</div>
+            <div class="merch-price">${item.locked ? 'LOCKED' : item.price + ' CR'}</div>
         </div>
     `;
 
-    card.addEventListener('click', () => openPurchaseModal(item));
+    if (!item.locked) {
+        card.addEventListener('click', () => openPurchaseModal(item));
+    } else {
+        card.addEventListener('click', () => showNotification('This item is locked. Complete more missions to unlock!', 'info'));
+    }
 
     return card;
 }
@@ -193,6 +284,7 @@ function confirmPurchase() {
     }
 
     userCurrency -= selectedItem.price;
+    localStorage.setItem('gameCredits', userCurrency);
     updateCurrencyDisplay();
     
     showNotification(`Successfully purchased ${selectedItem.name}!`, 'success');
@@ -248,7 +340,7 @@ function showNotification(message, type = 'info') {
 
 function goBack() {
     // Navigate back or to home page
-    window.history.back();
+    window.location.href = 'index.html';
 }
 
 // ===== MODAL CLOSE ON OUTSIDE CLICK =====
@@ -296,6 +388,7 @@ document.head.appendChild(style);
 window.collectiblesAPI = {
     addCurrency: (amount) => {
         userCurrency += amount;
+        localStorage.setItem('gameCredits', userCurrency);
         updateCurrencyDisplay();
     },
     getCurrency: () => userCurrency,
@@ -304,8 +397,18 @@ window.collectiblesAPI = {
         if (badge) {
             badge.locked = false;
             badge.status = 'Unlocked';
+            badge.avatars = badge.avatars.replace('locked.png', `badge${badge.id}.png`);
             renderBadges();
             showNotification(`Badge "${badge.name}" unlocked!`, 'success');
+        }
+    },
+    unlockMerchandise: (merchId) => {
+        const merch = merchandiseData.find(m => m.id === merchId);
+        if (merch) {
+            merch.locked = false;
+            merch.image = merch.image.replace('locked.png', `model${merch.id}.png`);
+            renderMerchandise();
+            showNotification(`"${merch.name}" is now available for purchase!`, 'success');
         }
     },
     addMerchandise: (merchData) => {

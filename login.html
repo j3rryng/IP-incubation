@@ -413,8 +413,8 @@
             localStorage.setItem('gameCredits', userData.credits || 0);
             localStorage.setItem('gameXP', userData.xp || 0);
 
-            // Redirect to index
-            window.location.href = 'index.html';
+            // Redirect to loading
+            window.location.href = 'loading.html';
         }
 
         // Register with Email/Password
@@ -519,7 +519,6 @@
         // Check if user is already logged in
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // User is already logged in, redirect to index
                 handleSuccessfulLogin(user);
             }
         });

@@ -53,9 +53,9 @@ body {
 }
 
 .back-button {
-    background: #c94444;
-    border: none;
-    color: #ffffff;
+    background: rgba(15, 25, 15, 0.85);
+    border: 2px solid #5c8a5c;
+    color: #88ff88;
     font-size: 20px;
     cursor: pointer;
     padding: 0;
@@ -68,10 +68,12 @@ body {
     transition: all 0.2s;
     font-family: 'Courier New', monospace;
     flex-shrink: 0;
+    line-height: 1;
 }
 
 .back-button:hover {
-    background: #d55555;
+    background: #88ff88;
+    color: #1a2e1a;
     transform: scale(1.05);
 }
 
@@ -314,6 +316,11 @@ body {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     border-color: rgba(255, 255, 255, 0.4);
     background: linear-gradient(135deg, rgba(74, 107, 71, 0.95) 0%, rgba(90, 124, 84, 0.95) 100%);
+}
+
+.merch-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .merch-image-container {
@@ -587,326 +594,10 @@ body {
 }
 
 /* Responsive design */
-/* Responsive design */
-
-/* Extra large screens */
-@media (min-width: 2000px) {
-    .collectibles-container {
-        width: 85%;
-        max-width: 2000px;
-        height: 85vh;
-    }
-    
-    .content-wrapper {
-        padding: 50px 60px;
-    }
-    
-    .badge-card {
-        width: 320px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minspan(300px, 1fr));
-        gap: 28px;
-    }
-    
-    .section-title {
-        font-size: 28px;
-    }
-    
-    .collection-section {
-        padding: 35px;
-    }
-}
-
-/* Large screens */
-@media (min-width: 1920px) and (max-width: 1999px) {
-    .collectibles-container {
-        width: 88%;
-        max-width: 1900px;
-        height: 85vh;
-    }
-    
-    .content-wrapper {
-        padding: 45px 50px;
-    }
-    
-    .badge-card {
-        width: 300px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-        gap: 25px;
-    }
-    
-    .section-title {
-        font-size: 26px;
-    }
-}
-
-/* Large desktops */
-@media (max-width: 1600px) {
-    .collectibles-container {
-        width: 88%;
-        max-width: 1500px;
-    }
-    
-    .badge-card {
-        width: 280px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-}
-
-/* Standard desktops */
-@media (max-width: 1200px) {
-    .collectibles-container {
-        width: 90%;
-        max-width: 1200px;
-    }
-    
-    .content-wrapper {
-        padding: 30px 35px;
-    }
-    
-    .badge-card {
-        width: 260px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        gap: 18px;
-    }
-    
-    .collection-section {
-        padding: 25px;
-    }
-}
-
-/* Small laptops/tablets landscape */
-@media (max-width: 900px) {
-    .collectibles-container {
-        width: 92%;
-        max-width: 800px;
-        height: 88vh;
-    }
-    
-    .header {
-        padding: 18px 30px;
-    }
-    
-    .header h1 {
-        font-size: 22px;
-    }
-    
-    .back-button {
-        width: 38px;
-        height: 38px;
-        font-size: 18px;
-    }
-    
-    .currency-badge {
-        font-size: 14px;
-        padding: 8px 18px;
-    }
-    
-    .content-wrapper {
-        padding: 25px 28px;
-    }
-    
-    .section-title {
-        font-size: 20px;
-    }
-    
-    .collection-section {
-        margin-bottom: 30px;
-        padding: 22px;
-    }
-
-    .badge-card {
-        width: 240px;
-    }
-
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 16px;
-    }
-    
-    .badge-card,
-    .merch-card {
-        padding: 20px;
-    }
-    
-    .badge-avatar {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-/* Tablets portrait */
-@media (max-width: 768px) {
-    .collectibles-container {
-        width: 95%;
-        height: 90vh;
-    }
-    
-    .badge-card {
-        width: 220px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-    }
-}
-
-/* Large phones landscape / small tablets */
 @media (max-width: 600px) {
-    .collectibles-container {
-        width: 95%;
-        height: 92vh;
-        border-radius: 30px;
-    }
-    
-    .header {
-        padding: 15px 20px;
-        border-radius: 28px 28px 0 0;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-    
-    .header-left {
-        gap: 12px;
-    }
-    
-    .header h1 {
-        font-size: 19px;
-    }
-    
     .back-button {
         width: 36px;
         height: 36px;
         font-size: 16px;
-    }
-    
-    .currency-badge {
-        font-size: 13px;
-        padding: 7px 15px;
-    }
-    
-    .content-wrapper {
-        padding: 20px;
-    }
-
-    .section-title {
-        font-size: 18px;
-    }
-    
-    .view-more-btn {
-        font-size: 12px;
-        padding: 6px 15px;
-    }
-    
-    .collection-section {
-        margin-bottom: 25px;
-        padding: 20px;
-        border-radius: 20px;
-    }
-
-    .badge-card {
-        width: 200px;
-    }
-
-    .merchandise-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 14px;
-    }
-
-    .badge-card,
-    .merch-card {
-        padding: 18px;
-    }
-
-    .badge-avatar {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .badge-name {
-        font-size: 15px;
-    }
-    
-    .badge-status {
-        font-size: 12px;
-    }
-    
-    .merch-name {
-        font-size: 15px;
-    }
-    
-    .merch-price {
-        font-size: 14px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        padding: 20px;
-    }
-
-    .modal-body {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-
-    .purchase-actions {
-        flex-direction: column;
-    }
-}
-
-/* Phones portrait */
-@media (max-width: 480px) {
-    .collectibles-container {
-        width: 96%;
-        height: 94vh;
-        border-radius: 25px;
-    }
-    
-    .header {
-        padding: 12px 15px;
-        border-radius: 23px 23px 0 0;
-    }
-    
-    .header h1 {
-        font-size: 17px;
-    }
-    
-    .content-wrapper {
-        padding: 18px;
-    }
-    
-    .collection-section {
-        padding: 18px;
-        margin-bottom: 20px;
-    }
-    
-    .badge-card {
-        width: 180px;
-    }
-    
-    .merchandise-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    
-    .badge-card,
-    .merch-card {
-        padding: 16px;
-    }
-    
-    .badge-avatar {
-        width: 65px;
-        height: 65px;
     }
 }
