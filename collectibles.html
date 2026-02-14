@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collectibles Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="collectibles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="collectibles-container">
+        <!-- Navigation Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="back-button" onclick="goBack()" aria-label="Go back">←</button>
+                <h1>Collectibles</h1>
+            </div>
+            <div class="header-right">
+                <div class="currency-badge" id="currencyDisplay">1500 CR</div>
+            </div>
+        </header>
+
+        <!-- Content Wrapper with Scroll -->
+        <div class="content-wrapper">
+            <!-- Badge Collection Section -->
+            <section class="collection-section">
+                <div class="section-header">
+                    <h2 class="section-title">Badge Collection</h2>
+                    <button class="view-more-btn" onclick="openBadgeModal()">View All →</button>
+                </div>
+                
+                <div class="badges-grid" id="badgesGrid">
+                    <!-- Badge items will be inserted here by JS -->
+                </div>
+            </section>
+
+            <!-- Official Merchandise Section -->
+            <section class="collection-section">
+                <div class="section-header">
+                    <h2 class="section-title">Official Merchandise</h2>
+                </div>
+                
+                <div class="merchandise-grid" id="merchandiseGrid">
+                    <!-- Merchandise items will be inserted here by JS -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal for Badge Details -->
+    <div id="badgeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Badge Collection</h2>
+                <button class="close-btn" onclick="closeBadgeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBadgesGrid">
+                <!-- All badges will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Item Purchase -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content purchase-modal">
+            <div class="modal-header">
+                <h2>Confirm Purchase</h2>
+                <button class="close-btn" onclick="closePurchaseModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="purchase-details">
+                    <div class="item-preview" id="purchasePreview"></div>
+                    <div class="item-info">
+                        <h3 id="purchaseItemName"></h3>
+                        <p class="item-description" id="purchaseItemDesc"></p>
+                        <div class="price-display">
+                            <span class="price-label">Price:</span>
+                            <span class="price-value" id="purchasePrice"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="purchase-actions">
+                    <button class="cancel-btn" onclick="closePurchaseModal()">Cancel</button>
+                    <button class="confirm-btn" onclick="confirmPurchase()">Confirm Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="collectibles.js"></script>
+</body>
+</html>
