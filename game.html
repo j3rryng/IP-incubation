@@ -131,7 +131,27 @@
     </div>
 </div>
 
-<script>
+<script type="module">
+    // Import Firebase modules
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, updateDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAQB89Td3YGWMlokZ4C6oPpn2j91y6uQsM",
+        authDomain: "iplogininc.firebaseapp.com",
+        projectId: "iplogininc",
+        storageBucket: "iplogininc.firebasestorage.app",
+        messagingSenderId: "600493251801",
+        appId: "1:600493251801:web:22adeb0f992cfb7fbd32c8",
+        measurementId: "G-6YQ5RH84N9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let currentUserId = null;
+
     // Game State
     let gameState = {
         currentPatient: 'none',
@@ -139,11 +159,40 @@
         uncleStage: Math.floor(Math.random() * 3) + 1,
         harukaDay: 1,
         uncleDay: 1,
-        credits: parseInt(localStorage.getItem('gameCredits')) || 0,
-        xp: parseInt(localStorage.getItem('gameXP')) || 0,
+        credits: 0,
+        xp: 0,
         harukaAttempts: 0,
         uncleAttempts: 0
     };
+
+    // Wait for authentication and load user data
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            currentUserId = user.uid;
+            // Load stats from Firestore
+            try {
+                const userRef = doc(db, 'users', user.uid);
+                const userDoc = await getDoc(userRef);
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    gameState.credits = userData.credits || 0;
+                    gameState.xp = userData.xp || 0;
+                    updateStatsDisplay();
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                // Fallback to localStorage
+                gameState.credits = parseInt(localStorage.getItem('gameCredits')) || 0;
+                gameState.xp = parseInt(localStorage.getItem('gameXP')) || 0;
+                updateStatsDisplay();
+            }
+        } else {
+            // Not logged in, use localStorage
+            gameState.credits = parseInt(localStorage.getItem('gameCredits')) || 0;
+            gameState.xp = parseInt(localStorage.getItem('gameXP')) || 0;
+            updateStatsDisplay();
+        }
+    });
 
     // Virus data
     const virusData = {
@@ -187,12 +236,27 @@
         return symptoms.join(", ");
     }
 
-    // Update stats display
-    function updateStatsDisplay() {
+    // Update stats display AND sync to Firebase
+    async function updateStatsDisplay() {
         document.getElementById('credits-display').textContent = `${gameState.credits} CR`;
         document.getElementById('xp-display').textContent = `${gameState.xp} XP`;
+        
+        // Update localStorage
         localStorage.setItem('gameCredits', gameState.credits);
         localStorage.setItem('gameXP', gameState.xp);
+        
+        // Sync to Firebase if user is logged in
+        if (currentUserId) {
+            try {
+                const userRef = doc(db, 'users', currentUserId);
+                await updateDoc(userRef, {
+                    credits: gameState.credits,
+                    xp: gameState.xp
+                });
+            } catch (error) {
+                console.error('Error syncing to Firebase:', error);
+            }
+        }
     }
 
     // Award credits based on attempt number

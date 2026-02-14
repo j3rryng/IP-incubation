@@ -13,41 +13,95 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0f190f 0%, #1a2e1a 100%);
+            background: linear-gradient(180deg, rgba(26, 58, 26, 0.85) 0%, rgba(13, 31, 13, 0.85) 100%), 
+                        url('img/settingsbg.jpg') center/cover no-repeat fixed;
             font-family: 'Segoe UI', Tahoma, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: #e0f0e0;
+            color: #2d4a2d;
+            padding: 10px;
         }
 
         .login-container {
-            background: rgba(15, 25, 15, 0.95);
-            border: 2px solid #5c8a5c;
-            border-radius: 20px;
-            padding: 40px;
-            width: 90%;
-            max-width: 420px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(180deg, #c8d9c8 0%, #a8c9a8 100%);
+            border-radius: 35px;
+            padding: 50px 60px;
+            width: 100%;
+            max-width: 95%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        @media (min-width: 1200px) {
+            .login-container {
+                max-width: 1100px;
+            }
+        }
+
+        @media (min-width: 900px) and (max-width: 1199px) {
+            .login-container {
+                max-width: 90%;
+            }
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo img {
-            max-width: 200px;
-            height: auto;
+            margin-bottom: 35px;
         }
 
         .logo h1 {
-            color: #88ff88;
+            color: #1a3a1a;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .logo h2 {
+            color: #2d4a2d;
             font-size: 2rem;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: #9ab89a;
+            border-radius: 50px;
+            padding: 6px;
+            margin-bottom: 30px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: #4a6a4a;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #2d4a2d;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
@@ -56,148 +110,202 @@
 
         label {
             display: block;
-            color: #afffaf;
-            font-size: 0.9rem;
+            color: #4a6a4a;
+            font-size: 0.95rem;
             margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 25px;
+            border: 3px solid #8ab88a;
+            padding: 14px 20px;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #5a8a5a;
+            box-shadow: 0 0 0 3px rgba(90, 138, 90, 0.1);
+        }
+
+        .input-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            color: #6a8a6a;
+            flex-shrink: 0;
+        }
+
+        .password-toggle {
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            color: #6a8a6a;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #4a6a4a;
         }
 
         input[type="email"],
         input[type="password"],
         input[type="text"] {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid #5c8a5c;
-            border-radius: 8px;
-            color: #ffffff;
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #2d4a2d;
             font-size: 1rem;
-            transition: all 0.3s;
+            outline: none;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #88ff88;
-            background: rgba(0, 0, 0, 0.5);
+        input::placeholder {
+            color: #a0b8a0;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #4a6a4a;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #5a8a5a;
+        }
+
+        .forgot-link {
+            color: #4a6a4a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+            color: #2d4a2d;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            background: #5c8a5c;
+            padding: 16px;
+            background: linear-gradient(135deg, #3a5a3a 0%, #2d4a2d 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn:hover {
-            background: #88ff88;
-            color: #1a2e1a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(136, 255, 136, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .btn-google {
-            background: #ffffff;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-google:hover {
-            background: #f0f0f0;
-            color: #000;
+        .btn:active {
+            transform: translateY(0);
         }
 
         .divider {
             text-align: center;
             margin: 25px 0;
-            position: relative;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #5c8a5c;
-        }
-
-        .divider span {
-            background: rgba(15, 25, 15, 0.95);
-            padding: 0 15px;
-            position: relative;
-            color: #88ff88;
-            font-size: 0.85rem;
-        }
-
-        .toggle-form {
-            text-align: center;
-            margin-top: 20px;
-            color: #afffaf;
+            color: #4a6a4a;
             font-size: 0.9rem;
         }
 
-        .toggle-form a {
-            color: #88ff88;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
         }
 
-        .toggle-form a:hover {
+        .btn-social {
+            width: 100%;
+            padding: 14px;
+            background: #ffffff;
+            border: 2px solid #8ab88a;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2d4a2d;
+        }
+
+        .btn-social:hover {
+            border-color: #5a8a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-social svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .terms {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: #6a8a6a;
+            line-height: 1.4;
+        }
+
+        .terms a {
+            color: #4a6a4a;
             text-decoration: underline;
+            cursor: pointer;
         }
 
         .error-message {
-            background: rgba(255, 100, 100, 0.2);
-            border: 1px solid #ff6464;
-            color: #ffaaaa;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: rgba(220, 53, 69, 0.15);
+            border: 2px solid #dc3545;
+            color: #a52834;
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
             font-size: 0.9rem;
             display: none;
+            text-align: center;
         }
 
         .success-message {
-            background: rgba(136, 255, 136, 0.2);
-            border: 1px solid #88ff88;
-            color: #88ff88;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: rgba(90, 138, 90, 0.15);
+            border: 2px solid #5a8a5a;
+            color: #2d4a2d;
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
             font-size: 0.9rem;
             display: none;
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-top: -10px;
-            margin-bottom: 15px;
-        }
-
-        .forgot-password a {
-            color: #88ff88;
-            text-decoration: none;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
+            text-align: center;
         }
 
         .hidden {
@@ -208,85 +316,375 @@
             opacity: 0.6;
             pointer-events: none;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                padding: 40px 30px;
+                max-width: 100%;
+                border-radius: 30px;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .logo h2 {
+                font-size: 1.8rem;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .tab-btn {
+                font-size: 0.95rem;
+                padding: 10px;
+            }
+
+            label {
+                font-size: 0.9rem;
+            }
+
+            .input-wrapper {
+                padding: 12px 16px;
+            }
+
+            input[type="email"],
+            input[type="password"],
+            input[type="text"] {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 14px;
+            }
+
+            .btn-social {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            .divider {
+                font-size: 0.85rem;
+                margin: 20px 0;
+            }
+
+            .terms {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-container {
+                padding: 35px 25px;
+                border-radius: 25px;
+            }
+
+            .logo {
+                margin-bottom: 25px;
+            }
+
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+
+            .logo h2 {
+                font-size: 1.6rem;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .tab-nav {
+                padding: 5px;
+                margin-bottom: 25px;
+            }
+
+            .tab-btn {
+                font-size: 0.9rem;
+                padding: 10px 8px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            label {
+                font-size: 0.85rem;
+                margin-bottom: 6px;
+            }
+
+            .input-wrapper {
+                padding: 12px 14px;
+                border-radius: 20px;
+            }
+
+            .input-icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+            .password-toggle {
+                width: 20px;
+                height: 20px;
+            }
+
+            input[type="email"],
+            input[type="password"],
+            input[type="text"] {
+                font-size: 0.9rem;
+            }
+
+            .checkbox-wrapper {
+                margin: 16px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .checkbox-label {
+                font-size: 0.85rem;
+            }
+
+            .forgot-link {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                font-size: 0.95rem;
+                padding: 13px;
+                border-radius: 20px;
+            }
+
+            .divider {
+                font-size: 0.8rem;
+                margin: 18px 0;
+            }
+
+            .social-buttons {
+                gap: 10px;
+            }
+
+            .btn-social {
+                font-size: 0.85rem;
+                padding: 11px 8px;
+                border-radius: 20px;
+            }
+
+            .btn-social svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .terms {
+                font-size: 0.65rem;
+                margin-top: 16px;
+            }
+
+            .error-message,
+            .success-message {
+                font-size: 0.85rem;
+                padding: 10px 14px;
+                border-radius: 15px;
+                margin-bottom: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .logo h1 {
+                font-size: 1rem;
+            }
+
+            .logo h2 {
+                font-size: 1.4rem;
+            }
+
+            .tab-btn {
+                font-size: 0.85rem;
+                padding: 8px 6px;
+            }
+
+            .btn-social {
+                font-size: 0.8rem;
+                padding: 10px 6px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="logo">
-            <h1>INCubation</h1>
+            <h1>Welcome back to</h1>
+            <h2>
+                <img src="img/icon.png" alt="Logo" onerror="this.style.display='none'">
+                INCubation
+            </h2>
         </div>
 
         <div id="error-message" class="error-message"></div>
         <div id="success-message" class="success-message"></div>
 
+        <!-- Tab Navigation -->
+        <div class="tab-nav" id="tab-nav">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="register">Register</button>
+        </div>
+
         <!-- Login Form -->
         <form id="login-form">
             <div class="form-group">
-                <label for="login-email">Email</label>
-                <input type="email" id="login-email" required>
+                <label>Email Address</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <input type="email" id="login-email" placeholder="example@gmail.com" required>
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="login-password">Password</label>
-                <input type="password" id="login-password" required>
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <input type="password" id="login-password" placeholder="Example_1234" required>
+                    <svg class="password-toggle" id="login-password-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </div>
             </div>
-            <div class="forgot-password">
-                <a id="show-reset">Forgot Password?</a>
+
+            <div class="checkbox-wrapper">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="remember-me">
+                    <span>Remember me</span>
+                </label>
+                <a class="forgot-link" id="show-reset">Forget password</a>
             </div>
-            <button type="submit" class="btn">Login</button>
-            <div class="divider"><span>OR</span></div>
-            <button type="button" class="btn btn-google" id="google-login">
-                <svg width="18" height="18" viewBox="0 0 18 18">
-                    <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
-                    <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/>
-                    <path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/>
-                    <path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/>
-                </svg>
-                Continue with Google
-            </button>
-            <div class="toggle-form">
-                Don't have an account? <a id="show-register">Register</a>
+
+            <button type="submit" class="btn">Log in</button>
+
+            <div class="divider">or log in with</div>
+
+            <div class="social-buttons">
+                <button type="button" class="btn-social" id="google-login">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                </button>
+            </div>
+
+            <div class="terms">
+                By clicking log in you agree to the <a>terms and conditions</a>
             </div>
         </form>
 
         <!-- Register Form -->
         <form id="register-form" class="hidden">
             <div class="form-group">
-                <label for="register-email">Email</label>
-                <input type="email" id="register-email" required>
+                <label>Email Address</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <input type="email" id="register-email" placeholder="example@gmail.com" required>
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="register-password">Password</label>
-                <input type="password" id="register-password" required minlength="6">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <input type="password" id="register-password" placeholder="Example_1234" required minlength="6">
+                    <svg class="password-toggle" id="register-password-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="register-confirm">Confirm Password</label>
-                <input type="password" id="register-confirm" required minlength="6">
+                <label>Confirm Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <input type="password" id="register-confirm-password" placeholder="Example_1234" required minlength="6">
+                    <svg class="password-toggle" id="register-confirm-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </div>
             </div>
-            <button type="submit" class="btn">Create Account</button>
-            <div class="divider"><span>OR</span></div>
-            <button type="button" class="btn btn-google" id="google-register">
-                <svg width="18" height="18" viewBox="0 0 18 18">
-                    <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
-                    <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/>
-                    <path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/>
-                    <path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/>
-                </svg>
-                Sign up with Google
-            </button>
-            <div class="toggle-form">
-                Already have an account? <a id="show-login">Login</a>
+
+            <div class="checkbox-wrapper">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="remember-me-register">
+                    <span>Remember me</span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+
+            <div class="divider">or sign up with</div>
+
+            <div class="social-buttons">
+                <button type="button" class="btn-social" id="google-register">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                </button>
+            </div>
+
+            <div class="terms">
+                By clicking create account you agree to the <a>terms and conditions</a>
             </div>
         </form>
 
         <!-- Password Reset Form -->
         <form id="reset-form" class="hidden">
             <div class="form-group">
-                <label for="reset-email">Email</label>
-                <input type="email" id="reset-email" required>
+                <label>Email Address</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <input type="email" id="reset-email" placeholder="example@gmail.com" required>
+                </div>
             </div>
             <button type="submit" class="btn">Send Reset Link</button>
-            <div class="toggle-form">
-                <a id="back-to-login">Back to Login</a>
+            <div class="terms" style="margin-top: 15px;">
+                <a id="back-to-login" style="color: #4a6a4a; font-weight: 600;">← Back to Login</a>
             </div>
         </form>
     </div>
@@ -311,7 +709,6 @@
             getDoc 
         } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyAQB89Td3YGWMlokZ4C6oPpn2j91y6uQsM",
             authDomain: "iplogininc.firebaseapp.com",
@@ -322,20 +719,17 @@
             measurementId: "G-6YQ5RH84N9"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // Elements
         const loginForm = document.getElementById('login-form');
         const registerForm = document.getElementById('register-form');
         const resetForm = document.getElementById('reset-form');
         const errorMsg = document.getElementById('error-message');
         const successMsg = document.getElementById('success-message');
 
-        // Show/Hide messages
         function showError(message) {
             errorMsg.textContent = message;
             errorMsg.style.display = 'block';
@@ -353,137 +747,142 @@
             successMsg.style.display = 'none';
         }
 
-        // Toggle forms
-        document.getElementById('show-register').addEventListener('click', () => {
-            loginForm.classList.add('hidden');
-            registerForm.classList.remove('hidden');
-            resetForm.classList.add('hidden');
-            hideMessages();
-        });
+        // Password visibility toggle functionality
+        function setupPasswordToggle(toggleId, inputId) {
+            const toggle = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+            
+            toggle.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggle.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                    `;
+                } else {
+                    input.type = 'password';
+                    toggle.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    `;
+                }
+            });
+        }
 
-        document.getElementById('show-login').addEventListener('click', () => {
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-            resetForm.classList.add('hidden');
-            hideMessages();
+        // Setup password toggles for all password fields
+        setupPasswordToggle('login-password-toggle', 'login-password');
+        setupPasswordToggle('register-password-toggle', 'register-password');
+        setupPasswordToggle('register-confirm-toggle', 'register-confirm-password');
+
+        // Tab switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                if (tab === 'login') {
+                    loginForm.classList.remove('hidden');
+                    registerForm.classList.add('hidden');
+                    resetForm.classList.add('hidden');
+                    document.querySelector('.logo h1').textContent = 'Welcome back to';
+                } else {
+                    registerForm.classList.remove('hidden');
+                    loginForm.classList.add('hidden');
+                    resetForm.classList.add('hidden');
+                    document.querySelector('.logo h1').textContent = 'Go ahead and start an account';
+                }
+                hideMessages();
+            });
         });
 
         document.getElementById('show-reset').addEventListener('click', () => {
             loginForm.classList.add('hidden');
             resetForm.classList.remove('hidden');
+            document.getElementById('tab-nav').style.display = 'none';
+            document.querySelector('.logo h1').textContent = 'Reset your password';
             hideMessages();
         });
 
         document.getElementById('back-to-login').addEventListener('click', () => {
             resetForm.classList.add('hidden');
             loginForm.classList.remove('hidden');
+            document.getElementById('tab-nav').style.display = 'flex';
+            document.querySelector('.logo h1').textContent = 'Welcome back to';
             hideMessages();
         });
 
-        // Create user profile in Firestore
         async function createUserProfile(user, additionalData = {}) {
             const userRef = doc(db, 'users', user.uid);
             const userDoc = await getDoc(userRef);
-
             if (!userDoc.exists()) {
-                const userData = {
+                await setDoc(userRef, {
                     email: user.email,
                     credits: 0,
                     xp: 0,
                     createdAt: new Date().toISOString(),
                     ...additionalData
-                };
-                await setDoc(userRef, userData);
+                });
             }
         }
 
-        // Load user data and redirect
         async function handleSuccessfulLogin(user) {
-            // Create profile if it doesn't exist
             await createUserProfile(user);
-
-            // Get user data
             const userRef = doc(db, 'users', user.uid);
             const userDoc = await getDoc(userRef);
             const userData = userDoc.data();
-
-            // Save to localStorage for game use
             localStorage.setItem('userEmail', user.email);
             localStorage.setItem('userId', user.uid);
             localStorage.setItem('gameCredits', userData.credits || 0);
             localStorage.setItem('gameXP', userData.xp || 0);
-
-            // Redirect to loading
             window.location.href = 'loading.html';
         }
 
-        // Register with Email/Password
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             hideMessages();
-
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
-            const confirm = document.getElementById('register-confirm').value;
-
-            if (password !== confirm) {
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
                 showError('Passwords do not match!');
                 return;
             }
-
-            if (password.length < 6) {
-                showError('Password must be at least 6 characters!');
-                return;
-            }
-
+            
             try {
                 registerForm.classList.add('loading');
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 await handleSuccessfulLogin(userCredential.user);
             } catch (error) {
                 registerForm.classList.remove('loading');
-                if (error.code === 'auth/email-already-in-use') {
-                    showError('This email is already registered!');
-                } else if (error.code === 'auth/invalid-email') {
-                    showError('Invalid email address!');
-                } else {
-                    showError(error.message);
-                }
+                showError(error.code === 'auth/email-already-in-use' ? 'This email is already registered!' : error.message);
             }
         });
 
-        // Login with Email/Password
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             hideMessages();
-
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-
             try {
                 loginForm.classList.add('loading');
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 await handleSuccessfulLogin(userCredential.user);
             } catch (error) {
                 loginForm.classList.remove('loading');
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    showError('Invalid email or password!');
-                } else if (error.code === 'auth/invalid-email') {
-                    showError('Invalid email address!');
-                } else {
-                    showError(error.message);
-                }
+                showError('Invalid email or password!');
             }
         });
 
-        // Google Sign-In
         async function handleGoogleSignIn() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 await handleSuccessfulLogin(result.user);
             } catch (error) {
                 if (error.code !== 'auth/popup-closed-by-user') {
-                    showError('Google sign-in failed: ' + error.message);
+                    showError('Google sign-in failed');
                 }
             }
         }
@@ -491,13 +890,10 @@
         document.getElementById('google-login').addEventListener('click', handleGoogleSignIn);
         document.getElementById('google-register').addEventListener('click', handleGoogleSignIn);
 
-        // Password Reset
         resetForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             hideMessages();
-
             const email = document.getElementById('reset-email').value;
-
             try {
                 resetForm.classList.add('loading');
                 await sendPasswordResetEmail(auth, email);
@@ -506,22 +902,12 @@
                 document.getElementById('reset-email').value = '';
             } catch (error) {
                 resetForm.classList.remove('loading');
-                if (error.code === 'auth/user-not-found') {
-                    showError('No account found with this email!');
-                } else if (error.code === 'auth/invalid-email') {
-                    showError('Invalid email address!');
-                } else {
-                    showError(error.message);
-                }
+                showError(error.code === 'auth/user-not-found' ? 'No account found with this email!' : error.message);
             }
         });
 
-        // Check if user is already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                handleSuccessfulLogin(user);
-            }
-        });
+        // Only check auth state but don't auto-redirect
+        // User must explicitly click login/register
     </script>
 </body>
 </html>
