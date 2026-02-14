@@ -430,48 +430,135 @@ body {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
+
+/* Tablets */
+@media (max-width: 1024px) {
     .logo {
         left: 50%;
-        top: 30%;
-        max-width: 300px;
-    }
-
-    .logo h1 {
-        font-size: 60px;
-        text-align: center;
+        top: 35%;
+        max-width: 600px;
     }
 
     .menu-container {
         right: 50%;
+        top: 60%;
+        transform: translate(50%, -50%);
+        min-width: 280px;
+        padding: 25px 40px;
+    }
+
+    .menu-button {
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+
+    .menu-button.primary {
+        font-size: 17px;
+        padding: 16px 25px;
+    }
+
+    .bottom-stats {
+        left: 30px;
+        bottom: 30px;
+    }
+
+    .bottom-icons {
+        right: 30px;
+        bottom: 30px;
+    }
+
+    .stat-badge {
+        font-size: 16px;
+        padding: 10px 25px;
+        min-width: 130px;
+    }
+
+    .icon-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon-button svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-info {
+        top: 15px;
+        right: 15px;
+        padding: 10px 15px;
+        font-size: 0.8rem;
+        gap: 10px;
+    }
+
+    .user-email {
+        display: none;
+    }
+
+    .logout-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .logo {
+        left: 50%;
+        top: 25%;
+        max-width: 400px;
+    }
+
+    .menu-container {
+        right: 50%;
+        top: 55%;
         transform: translate(50%, -50%);
         min-width: 260px;
-        padding: 30px 35px;
+        padding: 25px 35px;
+        border-radius: 35px;
     }
 
     .menu-button {
         font-size: 15px;
         padding: 12px 20px;
+        border-radius: 25px;
+    }
+
+    .menu-button.primary {
+        font-size: 16px;
+        padding: 14px 20px;
+    }
+
+    .menu-button .save-text {
+        font-size: 12px;
     }
 
     .bottom-stats {
         left: 20px;
         bottom: 20px;
+        gap: 10px;
     }
 
     .bottom-icons {
         right: 20px;
         bottom: 20px;
+        gap: 15px;
     }
 
     .stat-badge {
-        font-size: 15px;
-        padding: 10px 20px;
+        font-size: 14px;
+        padding: 8px 20px;
+        min-width: 110px;
+        border-radius: 20px;
     }
 
     .icon-button {
         width: 55px;
         height: 55px;
+    }
+
+    .icon-button svg {
+        width: 28px;
+        height: 28px;
     }
 
     .profile-container {
@@ -487,6 +574,11 @@ body {
     .profile-slot {
         padding: 16px 22px;
         font-size: 15px;
+        border-radius: 40px;
+    }
+
+    .profile-name {
+        font-size: 15px;
     }
 }
 
@@ -495,17 +587,197 @@ body {
         padding: 10px;
     }
 
+    .user-info {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        border-radius: 12px;
+    }
+
+    .logout-btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    .top-nav {
+        top: 15px;
+        left: 15px;
+    }
+
+    .home-link {
+        font-size: 14px;
+    }
+
+    .logo {
+        top: 20%;
+        max-width: 280px;
+    }
+
+    .menu-container {
+        top: 50%;
+        min-width: 240px;
+        padding: 20px 25px;
+        border-radius: 30px;
+    }
+
+    .menu-button {
+        font-size: 14px;
+        padding: 10px 18px;
+        margin: 8px 0;
+        border-radius: 20px;
+    }
+
+    .menu-button.primary {
+        font-size: 15px;
+        padding: 12px 18px;
+    }
+
+    .menu-button .save-text {
+        font-size: 11px;
+    }
+
+    .bottom-stats {
+        left: 15px;
+        bottom: 15px;
+        gap: 8px;
+    }
+
+    .bottom-icons {
+        right: 15px;
+        bottom: 15px;
+        gap: 12px;
+    }
+
+    .stat-badge {
+        font-size: 12px;
+        padding: 6px 15px;
+        min-width: 90px;
+        border-radius: 18px;
+    }
+
+    .icon-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-button svg {
+        width: 25px;
+        height: 25px;
+    }
+
     .profile-container {
         padding: 20px;
         border-radius: 15px;
+        margin-top: 3vh;
+    }
+
+    .header {
+        margin-bottom: 20px;
     }
 
     .header h1 {
         font-size: 18px;
     }
 
+    .back-button {
+        font-size: 20px;
+    }
+
     .profile-slot {
         padding: 14px 20px;
         font-size: 14px;
+        border-radius: 35px;
+    }
+
+    .profile-name {
+        font-size: 14px;
+    }
+
+    .expand-icon {
+        font-size: 12px;
+    }
+
+    .stat-row {
+        font-size: 12px;
+    }
+
+    .profile-continue-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+
+    .save-number {
+        font-size: 11px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .logo {
+        max-width: 240px;
+    }
+
+    .menu-container {
+        min-width: 220px;
+        padding: 18px 22px;
+    }
+
+    .menu-button {
+        font-size: 13px;
+        padding: 9px 16px;
+    }
+
+    .menu-button.primary {
+        font-size: 14px;
+        padding: 11px 16px;
+    }
+
+    .stat-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+        min-width: 80px;
+    }
+
+    .icon-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .icon-button svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .profile-slot {
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .logo {
+        top: 15%;
+        max-width: 300px;
+    }
+
+    .menu-container {
+        top: 50%;
+        padding: 15px 25px;
+    }
+
+    .bottom-stats,
+    .bottom-icons {
+        bottom: 15px;
+    }
+
+    .stat-badge {
+        padding: 6px 15px;
+    }
+
+    .profile-container {
+        margin-top: 2vh;
+        padding: 20px;
     }
 }
