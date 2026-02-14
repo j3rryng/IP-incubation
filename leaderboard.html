@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="leaderboard-container">
+        <!-- Navigation Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="back-button" onclick="goBack()" aria-label="Go back">←</button>
+                <h1>Leaderboard</h1>
+            </div>
+            <div class="header-right">
+                <button class="share-button" onclick="shareLeaderboard()" aria-label="Share">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Wrapper with Scroll -->
+        <div class="content-wrapper">
+            <div class="leaderboard-grid">
+                <!-- Left Side - Podium Section -->
+                <section class="podium-section">
+                    <h2 class="section-title">Top 3</h2>
+                    
+                    <div class="podium-container">
+                        <!-- Second Place -->
+                        <div class="podium-place second-place">
+                            <div class="player-avatar">
+                                <img id="player2Avatar" src="" alt="Player 2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23silver%22/%3E%3C/svg%3E'">
+                                <div class="rank-badge silver">2</div>
+                            </div>
+                            <div class="player-info">
+                                <div class="player-name" id="player2Name">Loading...</div>
+                                <div class="player-score" id="player2Score">0 XP</div>
+                            </div>
+                            <div class="podium-stand silver-stand">
+                                <div class="stand-number">2</div>
+                            </div>
+                        </div>
+
+                        <!-- First Place -->
+                        <div class="podium-place first-place">
+                            <div class="crown">👑</div>
+                            <div class="player-avatar">
+                                <img id="player1Avatar" src="" alt="Player 1" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23gold%22/%3E%3C/svg%3E'">
+                                <div class="rank-badge gold">1</div>
+                            </div>
+                            <div class="player-info">
+                                <div class="player-name" id="player1Name">Loading...</div>
+                                <div class="player-score" id="player1Score">0 XP</div>
+                            </div>
+                            <div class="podium-stand gold-stand">
+                                <div class="stand-number">1</div>
+                            </div>
+                        </div>
+
+                        <!-- Third Place -->
+                        <div class="podium-place third-place">
+                            <div class="player-avatar">
+                                <img id="player3Avatar" src="" alt="Player 3" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23cd7f32%22/%3E%3C/svg%3E'">
+                                <div class="rank-badge bronze">3</div>
+                            </div>
+                            <div class="player-info">
+                                <div class="player-name" id="player3Name">Loading...</div>
+                                <div class="player-score" id="player3Score">0 XP</div>
+                            </div>
+                            <div class="podium-stand bronze-stand">
+                                <div class="stand-number">3</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Stats Section -->
+                    <div class="user-stats">
+                        <h3 class="stats-title">Your Stats</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">🏅</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">Rank</div>
+                                    <div class="stat-value" id="userRank">#--</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">XP</div>
+                                    <div class="stat-value" id="userXP">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">💰</div>
+                                <div class="stat-info">
+                                    <div class="stat-label">Credits</div>
+                                    <div class="stat-value" id="userCredits">0 CR</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xp-progress-bar">
+                            <div class="xp-label">
+                                <span>Level <span id="userLevel">1</span></span>
+                                <span><span id="currentXP">0</span> / <span id="maxXP">100</span> XP</span>
+                            </div>
+                            <div class="xp-bar">
+                                <div class="xp-fill" id="xpFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Side - Top 20 List -->
+                <section class="rankings-section">
+                    <h2 class="section-title">Top 20 Rankings</h2>
+                    
+                    <div class="rankings-list" id="rankingsList">
+                        <!-- Rankings will be inserted here by JS -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="leaderboard.js"></script>
+</body>
+</html>
