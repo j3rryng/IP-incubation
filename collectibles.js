@@ -2,14 +2,14 @@
 const badgesData = [
     {
         id: 1,
-        name: "Mr Crampleton",
+        name: "Mr Tanaka",
         status: "seen",
         avatars: "img/badge101.png",
         locked: false
     },
     {
         id: 2,
-        name: "Little Ms",
+        name: "Little Ms Haruka",
         status: "seen",
         avatars: "img/badge102.png",
         locked: false
