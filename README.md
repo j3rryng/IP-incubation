@@ -238,3 +238,7 @@ This page allows users to:
 I received inspiration for this project from:
 - ReStory: Chill Electronics Repairs
 - Papers Please
+
+## Repository
+
+GitHub: [https://github.com/j3rryng/IP-incubation](https://github.com/j3rryng/IP-incubation)
