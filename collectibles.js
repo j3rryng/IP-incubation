@@ -72,7 +72,7 @@ const merchandiseData = [
         name: "Vandal Model",
         price: 1000,
         description: "A magnificent virus created for destruction.",
-        image: "img/modelVandal.png",
+        image: "img/modelVandal.jpg",
         locked: false
     },
     {
