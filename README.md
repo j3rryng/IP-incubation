@@ -239,6 +239,26 @@ I received inspiration for this project from:
 - ReStory: Chill Electronics Repairs
 - Papers Please
 
+
+## Contributors
+
+### Sarah (API developer)
+- Connect credits and XP throughout the whole website
+- Finished the settings, support page
+- Finished the main gameplay
+- Login API
+- Finished the login page
+- Did the lottie animation
+- Added music background
+- Added checklist function
+
+### Jerry (Front-end developer)
+- Finished the home page
+- Leaderboard API
+- Added random user generator
+- Finished the leaderboard page
+- Finished the collectibles page
+
 ## Repository
 
 GitHub: [https://github.com/j3rryng/IP-incubation](https://github.com/j3rryng/IP-incubation)
