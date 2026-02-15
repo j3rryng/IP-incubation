@@ -58,7 +58,7 @@ Players should be able to:
 ### Design Artifacts
 ![API](img/APIlogin.png)
 *API login*
-![Logo Design](img/resize.png)
+![Logo Design](img/resize.jpg)
 *Resize the logo*
 ![Dark Mode Buttons](img/darkmode.png)
 *Dark mode buttons*
