@@ -751,16 +751,16 @@
     let currentNode = 'chapter1_start';
     let isTyping = false;
     let typewriterInterval = null;
-    let hasUncleCoughed = false; // Track if uncle has coughed already
+    let hasUncleCoughed = false;
     
     // Background Music
     const bgMusic = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
     let isMusicPlaying = false;
 
-    // Try to start music (some browsers require user interaction first)
+    // Try to start music
     function startMusic() {
-        bgMusic.volume = 0.3; // Set volume to 30%
+        bgMusic.volume = 0.3;
         bgMusic.play().then(() => {
             isMusicPlaying = true;
             musicToggle.textContent = '🔊 Music';
@@ -805,33 +805,25 @@
     };
 
     document.getElementById('skip-btn').onclick = () => {
-        // Skip directly to symptoms for current patient
         if (currentNode.includes('haruka')) {
-            // If in any haruka scene, jump to symptoms
             if (!currentNode.includes('death') && !currentNode.includes('correct') && !currentNode.includes('epilogue')) {
                 renderScene('haruka_check_temp');
             } else {
-                // Complete current text if not in active diagnosis
                 completeCurrentText();
             }
         } else if (currentNode.includes('uncle')) {
-            // If in any uncle scene, jump to symptoms
             if (!currentNode.includes('death') && !currentNode.includes('correct') && !currentNode.includes('epilogue')) {
                 renderScene('uncle_check_temp');
             } else {
                 completeCurrentText();
             }
         } else if (currentNode.includes('chapter1')) {
-            // Skip entire chapter 1 intro
             renderScene('chapter2_start');
         } else if (currentNode.includes('chapter2_start')) {
-            // Skip chapter 2 intro to Haruka entering
             renderScene('haruka_day1_enter');
         } else if (currentNode.includes('chapter3_start')) {
-            // Skip chapter 3 intro to Uncle entering
             renderScene('uncle_day1_enter');
         } else {
-            // For any other scene, just complete the current text
             completeCurrentText();
         }
     };
@@ -853,14 +845,11 @@
         const journalNote = document.getElementById('journal-note');
         const paperSound = document.getElementById('paper-sound');
         
-        // Play paper sound
         paperSound.currentTime = 0;
         paperSound.play().catch(e => console.log('Audio play failed:', e));
         
-        // Play tension music alongside horror background
         playTensionMusic();
         
-        // Fade in the note
         setTimeout(() => {
             journalNote.classList.add('show');
         }, 100);
@@ -869,8 +858,6 @@
     function hideJournalNote() {
         const journalNote = document.getElementById('journal-note');
         journalNote.classList.remove('show');
-        
-        // Stop tension music when note is hidden
         stopTensionMusic();
     }
 
@@ -878,7 +865,7 @@
     function playCoughSound() {
         const coughSound = document.getElementById('cough-sound');
         coughSound.currentTime = 0;
-        coughSound.volume = 0.5; // 50% volume for sound effect
+        coughSound.volume = 0.5;
         coughSound.play().catch(e => console.log('Cough sound failed:', e));
     }
 
@@ -886,7 +873,7 @@
     function playTensionMusic() {
         const tensionMusic = document.getElementById('tension-music');
         tensionMusic.currentTime = 0;
-        tensionMusic.volume = 0.7; // Increased to 70% volume
+        tensionMusic.volume = 0.7;
         tensionMusic.play().catch(e => console.log('Tension music failed:', e));
     }
 
@@ -903,26 +890,22 @@
             typewriterInterval = null;
         }
         
-        // Handle journal note display
         if (nodeKey === 'chapter4_journal') {
             showJournalNote();
         } else {
             hideJournalNote();
         }
         
-        // Play cough sound ONLY when Uncle Tanaka first enters AND hasn't coughed yet
         if (nodeKey === 'uncle_day1_enter' && !hasUncleCoughed) {
             playCoughSound();
-            hasUncleCoughed = true; // Mark that uncle has coughed
+            hasUncleCoughed = true;
         }
         
-        // Handle special exits
         if (nodeKey === 'exit_to_index') {
             window.location.href = 'index.html';
             return;
         }
         
-        // Handle restart
         if (nodeKey === 'restart') {
             const preservedCredits = gameState.credits;
             const preservedXP = gameState.xp;
@@ -938,7 +921,7 @@
                 harukaAttempts: 0,
                 uncleAttempts: 0
             };
-            hasUncleCoughed = false; // Reset cough flag on restart
+            hasUncleCoughed = false;
             updateStatsDisplay();
             nodeKey = 'chapter1_start';
         }
@@ -1020,7 +1003,6 @@
     const tabBtns = document.querySelectorAll('.tab-btn');
     const checklistItems = document.querySelectorAll('.checklist-item');
 
-    // Open/Close Panel
     sideMenuBtn.addEventListener('click', () => {
         sidePanel.classList.add('open');
     });
@@ -1029,21 +1011,17 @@
         sidePanel.classList.remove('open');
     });
 
-    // Tab Switching
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all tabs
             tabBtns.forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            // Add active class to clicked tab
             btn.classList.add('active');
             const tabName = btn.getAttribute('data-tab');
             document.getElementById(`${tabName}-tab`).classList.add('active');
         });
     });
 
-    // Checklist Toggle
     checklistItems.forEach(item => {
         item.addEventListener('click', () => {
             const checkbox = item.querySelector('.checkbox');

@@ -213,6 +213,7 @@ html {
 
 #journal-note.show {
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* Side Menu Button */

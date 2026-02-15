@@ -2,6 +2,26 @@
 let leaderboardData = [];
 let currentUser = null;
 
+// ===== FIREBASE INTEGRATION =====
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAQB89Td3YGWMlokZ4C6oPpn2j91y6uQsM",
+    authDomain: "iplogininc.firebaseapp.com",
+    projectId: "iplogininc",
+    storageBucket: "iplogininc.firebasestorage.app",
+    messagingSenderId: "600493251801",
+    appId: "1:600493251801:web:22adeb0f992cfb7fbd32c8",
+    measurementId: "G-6YQ5RH84N9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let currentUserId = null;
+
 // ===== API FUNCTIONS =====
 async function generateRandomProfile() {
     try {
@@ -22,8 +42,9 @@ async function generateRandomProfile() {
 }
 
 function generateRandomXP() {
-    // Max XP is 6000
-    return Math.floor(Math.random() * 6000);
+    // Generate very high XP for top players (10,000 - 50,000 range)
+    // This pushes normal players into the thousands in ranking
+    return Math.floor(Math.random() * 40000) + 10000;
 }
 
 function calculateLevel(xp) {
@@ -43,7 +64,17 @@ function getXPForNextLevel(xp) {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', async function() {
-    await initializeLeaderboard();
+    // Wait for Firebase auth to initialize
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            currentUserId = user.uid;
+            console.log('✓ User logged in:', user.email);
+            await initializeLeaderboard();
+        } else {
+            console.log('⚠ No user logged in, using guest mode');
+            await initializeLeaderboard();
+        }
+    });
 });
 
 async function initializeLeaderboard() {
@@ -90,17 +121,95 @@ async function generateLeaderboardData() {
         player.rank = index + 1;
     });
     
-    // Generate current user
-    const userProfile = await generateRandomProfile();
-    const userXP = Math.floor(Math.random() * 4000) + 1000;
-    currentUser = {
-        name: userProfile.name,
-        avatar: userProfile.avatar,
-        xp: userXP,
-        level: calculateLevel(userXP),
-        credits: 1500,
-        rank: Math.floor(Math.random() * 15) + 5 // Rank between 5-20
+    // ===== GET CURRENT USER FROM FIREBASE =====
+    if (currentUserId) {
+        try {
+            const userRef = doc(db, 'users', currentUserId);
+            const userDoc = await getDoc(userRef);
+            
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const userXP = userData.xp || 0;
+                const userCredits = userData.credits || 0;
+                const userEmail = auth.currentUser?.email || 'User';
+                
+                // Get profile picture if available
+                let userAvatar = localStorage.getItem('profilePicture');
+                if (!userAvatar) {
+                    const userProfile = await generateRandomProfile();
+                    userAvatar = userProfile.avatar;
+                }
+                
+                currentUser = {
+                    userId: currentUserId,
+                    name: userEmail.split('@')[0], // Use email username as name
+                    email: userEmail,
+                    avatar: userAvatar,
+                    xp: userXP,
+                    level: calculateLevel(userXP),
+                    credits: userCredits,
+                    rank: calculateUserRank(userXP)
+                };
+                
+                console.log('✓ Loaded user from Firebase:', {
+                    email: currentUser.email,
+                    xp: currentUser.xp,
+                    credits: currentUser.credits,
+                    level: currentUser.level
+                });
+            } else {
+                console.log('⚠ User document not found in Firestore');
+                createGuestUser();
+            }
+        } catch (error) {
+            console.error('Error loading user from Firebase:', error);
+            createGuestUser();
+        }
+    } else {
+        createGuestUser();
+    }
+}
+
+function createGuestUser() {
+    const guestProfile = {
+        name: 'Guest',
+        avatar: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23666%22/%3E%3C/svg%3E'
     };
+    
+    currentUser = {
+        userId: null,
+        name: guestProfile.name,
+        avatar: guestProfile.avatar,
+        xp: 0,
+        level: 1,
+        credits: 0,
+        rank: leaderboardData.length + 1
+    };
+    
+    console.log('⚠ Guest mode activated');
+}
+
+// Calculate user's rank based on their XP compared to leaderboard
+function calculateUserRank(userXP) {
+    // Count how many of the top 20 have more XP than user
+    let rank = 1;
+    for (let i = 0; i < leaderboardData.length; i++) {
+        if (leaderboardData[i].xp > userXP) {
+            rank++;
+        }
+    }
+    
+    // Simulate thousands of players between top 20 and the user
+    // Add additional rank based on XP deficit
+    // For every 100 XP difference from rank 20, add ~50 more players
+    if (rank > 20 && leaderboardData.length > 0) {
+        const rank20XP = leaderboardData[19].xp; // 20th place XP
+        const xpDifference = rank20XP - userXP;
+        const additionalPlayers = Math.floor(xpDifference / 100) * 50;
+        rank = 20 + Math.max(1, additionalPlayers);
+    }
+    
+    return rank;
 }
 
 // ===== UPDATE PODIUM =====
@@ -177,7 +286,7 @@ function updateUserStats() {
 
 // ===== UTILITY FUNCTIONS =====
 function goBack() {
-    window.history.back();
+    window.location.href = 'index.html';
 }
 
 function shareLeaderboard() {
@@ -186,22 +295,31 @@ function shareLeaderboard() {
         return;
     }
     
-    const shareText = `🏆 Leaderboard Update!\n\nMy Rank: #${currentUser.rank}\nXP: ${currentUser.xp.toLocaleString()}\nLevel: ${currentUser.level}\nCredits: ${currentUser.credits} CR\n\nCan you beat my score?`;
+    const shareText = `🏆 INCubation Leaderboard\n\nMy Rank: #${currentUser.rank.toLocaleString()}\nXP: ${currentUser.xp.toLocaleString()}\nLevel: ${currentUser.level}\nCredits: ${currentUser.credits} CR\n\nCan you beat my score?`;
     
-    // Try Web Share API if available
+    // Try Web Share API if available (works on mobile)
     if (navigator.share) {
         navigator.share({
-            title: 'Leaderboard Stats',
-            text: shareText
+            title: 'INCubation Leaderboard',
+            text: shareText,
+            url: window.location.href
+        }).then(() => {
+            showNotification('Shared successfully!', 'success');
         }).catch(err => {
             // User cancelled or error - show fallback
-            copyToClipboard(shareText);
+            if (err.name !== 'AbortError') {
+                copyToClipboard(shareText);
+            }
         });
     } else {
-        // Fallback to copy to clipboard
+        // Fallback to copy to clipboard for desktop
         copyToClipboard(shareText);
     }
 }
+
+// Expose functions to window so they can be called from HTML
+window.goBack = goBack;
+window.shareLeaderboard = shareLeaderboard;
 
 function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -272,17 +390,74 @@ window.leaderboardAPI = {
     },
     getLeaderboard: () => leaderboardData,
     getCurrentUser: () => currentUser,
-    addXP: (amount) => {
+    addXP: async (amount) => {
         if (currentUser) {
-            currentUser.xp = Math.min(currentUser.xp + amount, 6000); // Cap at 6000
+            const oldXP = currentUser.xp;
+            currentUser.xp = Math.min(currentUser.xp + amount, 100000); // Cap at 100,000
             currentUser.level = calculateLevel(currentUser.xp);
+            currentUser.rank = calculateUserRank(currentUser.xp);
+            
+            // Update in Firebase if user is logged in
+            if (currentUser.userId) {
+                try {
+                    const userRef = doc(db, 'users', currentUser.userId);
+                    await updateDoc(userRef, {
+                        xp: currentUser.xp
+                    });
+                    console.log(`✓ Added ${amount} XP in Firebase: ${oldXP} → ${currentUser.xp}`);
+                } catch (error) {
+                    console.error('Error updating XP in Firebase:', error);
+                }
+            }
+            
             updateUserStats();
+            showNotification(`+${amount} XP earned!`, 'success');
         }
     },
-    addCredits: (amount) => {
+    addCredits: async (amount) => {
         if (currentUser) {
+            const oldCredits = currentUser.credits;
             currentUser.credits += amount;
+            
+            // Update in Firebase if user is logged in
+            if (currentUser.userId) {
+                try {
+                    const userRef = doc(db, 'users', currentUser.userId);
+                    await updateDoc(userRef, {
+                        credits: currentUser.credits
+                    });
+                    console.log(`✓ Added ${amount} CR in Firebase: ${oldCredits} → ${currentUser.credits}`);
+                } catch (error) {
+                    console.error('Error updating credits in Firebase:', error);
+                }
+            }
+            
             updateUserStats();
+            showNotification(`+${amount} CR earned!`, 'success');
+        }
+    },
+    syncWithFirebase: async () => {
+        // Force sync current user stats with Firebase
+        if (currentUser && currentUser.userId) {
+            try {
+                const userRef = doc(db, 'users', currentUser.userId);
+                await updateDoc(userRef, {
+                    xp: currentUser.xp,
+                    credits: currentUser.credits
+                });
+                console.log('✓ Synced leaderboard data with Firebase');
+            } catch (error) {
+                console.error('Error syncing with Firebase:', error);
+            }
         }
     }
 };
+
+// Auto-save every 30 seconds if user is logged in
+setInterval(() => {
+    if (currentUser && currentUser.userId) {
+        window.leaderboardAPI.syncWithFirebase();
+    }
+}, 30000);
+
+console.log('leaderboard.js loaded and connected to Firebase');
